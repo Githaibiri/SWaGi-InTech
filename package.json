@@ -9,12 +9,18 @@
     "test": "vitest"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.12.4",
+    "@cloudflare/vitest-pool-workers": "^0.18.7",
+    "@cloudflare/workers-types": "^5.20260723.1",
     "@types/bcryptjs": "^2.4.6",
-    "vitest": "~3.2.0",
+    "vitest": "^4.1.10",
     "wrangler": "^4.113.0"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3"
+  },
+  "allowScripts": {
+    "workerd@1.20260721.1": true,
+    "esbuild@0.28.1": true,
+    "sharp@0.34.5": true
   }
 }

@@ -1,8 +1,9 @@
 import { healthResponse } from "./routes/health";
 import { login } from "./routes/auth";
+import type { Env } from "./auth/auth.types";
 
 export default {
-  async fetch(request: Request): Promise<Response> {
+  async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
 
     // Home route
@@ -33,7 +34,7 @@ export default {
 
     // Authentication route
 if (url.pathname === "/auth/login") {
-  return login(request);
+  return login(request, env);
 }
 
 // Unknown route

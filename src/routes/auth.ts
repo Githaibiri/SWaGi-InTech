@@ -1,18 +1,27 @@
-export async function login(request: Request): Promise<Response> {
-  return new Response(
-    JSON.stringify(
+import { loginController } from "../auth/auth.controller";
+import type { LoginRequest, Env } from "../auth/auth.types";
+
+export async function login(
+  request: Request,
+  env: Env
+): Promise<Response> {
+  try {
+    const body = await request.json() as LoginRequest;
+
+    return await loginController(env, body);
+
+  } catch {
+    return new Response(
+      JSON.stringify({
+        success: false,
+        message: "Invalid request."
+      }),
       {
-        success: true,
-        message: "Authentication route is working.",
-        next: "Database authentication will be added next."
-      },
-      null,
-      2
-    ),
-    {
-      headers: {
-        "Content-Type": "application/json"
+        status: 400,
+        headers: {
+          "Content-Type": "application/json"
+        }
       }
-    }
-  );
+    );
+  }
 }

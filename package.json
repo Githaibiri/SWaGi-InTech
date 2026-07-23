@@ -16,7 +16,8 @@
     "wrangler": "^4.113.0"
   },
   "dependencies": {
-    "bcryptjs": "^3.0.3"
+    "bcryptjs": "^3.0.3",
+    "typescript": "^7.0.2"
   },
   "allowScripts": {
     "workerd@1.20260721.1": true,

@@ -2,6 +2,9 @@ import { healthResponse } from "./routes/health";
 import { login } from "./routes/auth";
 import type { Env } from "./auth/auth.types";
 import { createSuperAdmin } from "./setup/createSuperAdmin.service";
+import { logout } from "./routes/logout";
+import { requireAuth } from "./middleware/auth.middleware";
+import { createTenant } from "./routes/tenant";
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -47,6 +50,41 @@ if (url.pathname === "/setup/create-super-admin") {
     // Authentication route
 if (url.pathname === "/auth/login") {
   return login(request, env);
+}
+
+// Logout route
+if (url.pathname === "/auth/logout") {
+  return logout();
+}
+
+// Create Tenant route
+if (
+  url.pathname === "/admin/tenants" &&
+  request.method === "POST"
+) {
+  return createTenant(request, env);
+}
+
+// Protected test route
+if (url.pathname === "/admin/dashboard") {
+
+  const auth = await requireAuth(request, env);
+
+  if (auth) {
+    return auth;
+  }
+
+  return new Response(
+    JSON.stringify({
+      success: true,
+      message: "Welcome Super Admin!"
+    }, null, 2),
+    {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+  );
 }
 
 // Unknown route

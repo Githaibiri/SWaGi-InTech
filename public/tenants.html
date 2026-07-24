@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWaGi InTech... | Tenants</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h2>SWaGi InTech...</h2>
+
+    <ul>
+        <li onclick="location.href='dashboard.html'">🏠 Dashboard</li>
+        <li><strong>🏢 Tenants</strong></li>
+        <li>📦 Packages</li>
+        <li>📡 Routers</li>
+        <li>💳 Billing</li>
+        <li>📊 Reports</li>
+        <li>⚙ Settings</li>
+        <li>🚪 Logout</li>
+    </ul>
+
+</div>
+
+<div class="main">
+
+    <header>
+
+        <h1>Tenant Management</h1>
+
+        <p>Manage all Wi-Fi businesses using SWaGi InTech...</p>
+
+    </header>
+
+    <button id="createTenantButton">
+        ➕ Create Tenant
+    </button>
+
+    <br><br>
+
+    <input
+        type="text"
+        id="searchBox"
+        placeholder="Search tenants..."
+        style="padding:10px;width:300px;"
+    >
+
+    <br><br>
+
+    <table id="tenantTable" width="100%" border="1" cellspacing="0" cellpadding="10">
+
+        <thead>
+
+        <tr>
+
+            <th>Business</th>
+            <th>Contact</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Subscription</th>
+            <th>Actions</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody id="tenantBody">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<script src="js/tenants.js"></script>
+
+</body>
+</html>

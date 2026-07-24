@@ -5,6 +5,8 @@ import { createSuperAdmin } from "./setup/createSuperAdmin.service";
 import { logout } from "./routes/logout";
 import { requireAuth } from "./middleware/auth.middleware";
 import { createTenant } from "./routes/tenant";
+import { dashboardStats } from "./routes/dashboard";
+import { listTenants } from "./routes/tenants";
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -65,8 +67,11 @@ if (
   return createTenant(request, env);
 }
 
-// Protected test route
-if (url.pathname === "/admin/dashboard") {
+// List all tenants
+if (
+  url.pathname === "/admin/tenants" &&
+  request.method === "GET"
+) {
 
   const auth = await requireAuth(request, env);
 
@@ -74,17 +79,24 @@ if (url.pathname === "/admin/dashboard") {
     return auth;
   }
 
-  return new Response(
-    JSON.stringify({
-      success: true,
-      message: "Welcome Super Admin!"
-    }, null, 2),
-    {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }
-  );
+  return listTenants(env);
+
+}
+
+// Dashboard statistics
+if (
+  url.pathname === "/admin/dashboard" &&
+  request.method === "GET"
+) {
+
+  const auth = await requireAuth(request, env);
+
+  if (auth) {
+    return auth;
+  }
+
+  return dashboardStats(env);
+
 }
 
 // Unknown route

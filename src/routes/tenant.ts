@@ -13,12 +13,21 @@ export async function createTenant(
 
     return await createTenantController(env, body);
 
-  } catch {
+  } catch (error) {
 
-    return new Response(
-      JSON.stringify({
-        success: false,
-        message: "Invalid request."
-      }),
+  return new Response(
+    JSON.stringify({
+      success: false,
+      message: "Invalid request.",
+      error: error instanceof Error ? error.message : String(error)
+    }, null, 2),
+    {
+      status: 400,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+  );
 
   }
+}

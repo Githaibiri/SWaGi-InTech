@@ -78,6 +78,41 @@
 
 </div>
 
+<div id="editModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.5);">
+
+  <div style="background:white; width:500px; margin:80px auto; padding:20px; border-radius:10px;">
+
+    <h2>Edit Tenant</h2>
+
+    <input type="hidden" id="editId">
+
+    <p>
+      <label>Business Name</label><br>
+      <input type="text" id="editBusiness" style="width:100%;">
+    </p>
+
+    <p>
+      <label>Contact Person</label><br>
+      <input type="text" id="editContact" style="width:100%;">
+    </p>
+
+    <p>
+      <label>Email</label><br>
+      <input type="email" id="editEmail" style="width:100%;">
+    </p>
+
+    <p>
+      <label>Phone</label><br>
+      <input type="text" id="editPhone" style="width:100%;">
+    </p>
+
+    <button id="saveTenantButton">Save</button>
+    <button onclick="closeModal()">Cancel</button>
+
+  </div>
+
+</div>
+
 <script src="js/tenants.js"></script>
 
 </body>

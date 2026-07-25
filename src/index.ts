@@ -7,6 +7,9 @@ import { requireAuth } from "./middleware/auth.middleware";
 import { createTenant } from "./routes/tenant";
 import { dashboardStats } from "./routes/dashboard";
 import { listTenants } from "./routes/tenants";
+import { updateTenant } from "./routes/updateTenant";
+import { suspendTenant } from "./routes/suspendTenant";
+import { deleteTenant } from "./routes/deleteTenant";
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -80,6 +83,60 @@ if (
   }
 
   return listTenants(env);
+
+}
+
+// Update tenant
+if (
+  url.pathname.startsWith("/admin/tenants/") &&
+  request.method === "PUT"
+) {
+
+  const auth = await requireAuth(request, env);
+
+  if (auth) {
+    return auth;
+  }
+
+  const id = url.pathname.split("/").pop()!;
+
+  return updateTenant(request, env, id);
+
+}
+
+// Suspend / Activate tenant
+if (
+  url.pathname.startsWith("/admin/tenants/") &&
+  request.method === "PATCH"
+) {
+
+  const auth = await requireAuth(request, env);
+
+  if (auth) {
+    return auth;
+  }
+
+  const id = url.pathname.split("/").pop()!;
+
+  return suspendTenant(env, id);
+
+}
+
+// Delete tenant
+if (
+  url.pathname.startsWith("/admin/tenants/") &&
+  request.method === "DELETE"
+) {
+
+  const auth = await requireAuth(request, env);
+
+  if (auth) {
+    return auth;
+  }
+
+  const id = url.pathname.split("/").pop()!;
+
+  return deleteTenant(env, id);
 
 }
 

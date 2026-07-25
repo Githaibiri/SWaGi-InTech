@@ -6,7 +6,10 @@ import type {
 } from "./auth.types";
 
 import { verifyPassword } from "./password";
-import { generateSessionToken } from "./session";
+import {
+  generateSessionToken,
+  getSessionExpiry
+} from "./session";
 
 export class AuthService {
   async login(
@@ -60,6 +63,28 @@ export class AuthService {
     }
 
     const token = generateSessionToken();
+
+    const expiresAt = getSessionExpiry();
+
+await env.swagi_intech_db
+  .prepare(`
+    INSERT INTO sessions (
+      id,
+      user_id,
+      token,
+      expires_at,
+      created_at
+    )
+    VALUES (?, ?, ?, ?, ?)
+  `)
+  .bind(
+    crypto.randomUUID(),
+    user.id,
+    token,
+    expiresAt.toISOString(),
+    new Date().toISOString()
+  )
+  .run();
 
     return {
       success: true,

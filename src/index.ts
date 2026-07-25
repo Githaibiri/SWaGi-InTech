@@ -3,7 +3,7 @@ import { login } from "./routes/auth";
 import type { Env } from "./auth/auth.types";
 import { createSuperAdmin } from "./setup/createSuperAdmin.service";
 import { logout } from "./routes/logout";
-import { requireAuth } from "./middleware/auth.middleware";
+import { requireSession } from "./auth/session.middleware";
 import { createTenant } from "./routes/tenant";
 import { dashboardStats } from "./routes/dashboard";
 import { listTenants } from "./routes/tenants";
@@ -76,7 +76,7 @@ if (
   request.method === "GET"
 ) {
 
-  const auth = await requireAuth(request, env);
+  const auth = await requireSession(request, env);
 
   if (auth) {
     return auth;
@@ -92,7 +92,7 @@ if (
   request.method === "PUT"
 ) {
 
-  const auth = await requireAuth(request, env);
+  const auth = await requireSession(request, env);
 
   if (auth) {
     return auth;
@@ -110,7 +110,7 @@ if (
   request.method === "PATCH"
 ) {
 
-  const auth = await requireAuth(request, env);
+  const auth = await requireSession(request, env);
 
   if (auth) {
     return auth;
@@ -128,7 +128,7 @@ if (
   request.method === "DELETE"
 ) {
 
-  const auth = await requireAuth(request, env);
+  const auth = await requireSession(request, env);
 
   if (auth) {
     return auth;
@@ -146,7 +146,7 @@ if (
   request.method === "GET"
 ) {
 
-  const auth = await requireAuth(request, env);
+  const auth = await requireSession(request, env);
 
   if (auth) {
     return auth;

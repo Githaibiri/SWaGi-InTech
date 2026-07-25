@@ -10,12 +10,23 @@ export async function loginController(
 
   const result = await authService.login(env, request);
 
-  return new Response(
-    JSON.stringify(result, null, 2),
-    {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }
+  const headers = new Headers({
+  "Content-Type": "application/json"
+});
+
+if (result.success && result.token) {
+
+  headers.append(
+    "Set-Cookie",
+    `session=${result.token}; HttpOnly; Path=/; Max-Age=86400; SameSite=Strict`
   );
+
+}
+
+return new Response(
+  JSON.stringify(result, null, 2),
+  {
+    headers
+  }
+);
 }

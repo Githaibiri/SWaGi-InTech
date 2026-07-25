@@ -1,71 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SWaGi InTech... | Super Admin</title>
 
-    <link rel="stylesheet" href="css/dashboard.css">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SWaGi InTech... Dashboard</title>
+
+    <link rel="stylesheet"
+          href="css/dashboard.css">
+
 </head>
 
 <body>
 
-<div class="sidebar">
+<div class="layout">
 
-    <h2>SWaGi InTech...</h2>
+    <aside class="sidebar">
 
-    <ul>
-        <li>🏠 Dashboard</li>
-        <li>🏢 Tenants</li>
-        <li>📦 Packages</li>
-        <li>📡 Routers</li>
-        <li>💳 Billing</li>
-        <li>📊 Reports</li>
-        <li>⚙ Settings</li>
-        <li>🚪 Logout</li>
-    </ul>
+        <h2>SWaGi InTech...</h2>
 
-</div>
-
-<div class="main">
-
-    <header>
-
-        <h1>Super Admin Dashboard</h1>
-
-        <p>
+        <p class="tagline">
             Transforming ideas into inventions and innovations.
         </p>
 
-    </header>
+        <nav>
 
-    <section class="cards">
+            <a href="dashboard.html" class="active">📊 Dashboard</a>
 
-        <div class="card">
-            <h3>Total Tenants</h3>
-            <h1 id="totalTenants">0</h1>
-        </div>
+            <a href="tenants.html">🏢 Tenants</a>
 
-        <div class="card">
-            <h3>Active Tenants</h3>
-            <h1 id="activeTenants">0</h1>
-        </div>
+            <a href="#">👥 Customers</a>
 
-        <div class="card">
-            <h3>Trial Tenants</h3>
-            <h1 id="trialTenants">0</h1>
-        </div>
+            <a href="#">📦 Packages</a>
 
-        <div class="card">
-            <h3>Total Revenue</h3>
-            <h1>KES 0</h1>
-        </div>
+            <a href="#">🎫 Vouchers</a>
 
-    </section>
+            <a href="#">💳 Billing</a>
+
+            <a href="#">📡 MikroTik</a>
+
+            <a href="#">📈 Reports</a>
+
+            <a href="#">⚙ Settings</a>
+
+            <a href="#">🚪 Logout</a>
+
+        </nav>
+
+    </aside>
+
+    <main class="content">
+
+        <header>
+
+            <h1>Super Admin Dashboard</h1>
+
+            <p>
+                Welcome back, Steven Githaibiri.
+            </p>
+
+        </header>
+
+        <section class="cards">
+
+            <div class="card">
+
+                <h3>Total Tenants</h3>
+
+                <h2 id="tenantCount">0</h2>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Active Customers</h3>
+
+                <h2>0</h2>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Revenue Today</h3>
+
+                <h2>KES 0</h2>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Online Routers</h3>
+
+                <h2>0</h2>
+
+            </div>
+
+        </section>
+
+        <section class="panel">
+
+            <h2>System Overview</h2>
+
+            <p>
+
+                Welcome to SWaGi InTech...
+
+                Your Wi-Fi Billing Platform is running successfully.
+
+            </p>
+
+        </section>
+
+    </main>
 
 </div>
 
 <script src="js/dashboard.js"></script>
 
 </body>
+
 </html>

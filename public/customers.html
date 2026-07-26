@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Customers | SWaGi InTech...</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/customers.css">
+
+</head>
+
+<body>
+
+    <header>
+
+        <h1>Customer Management</h1>
+
+        <button id="addCustomerButton">
+            + Add Customer
+        </button>
+
+    </header>
+
+    <main>
+
+        <table id="customersTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>Name</th>
+
+                    <th>Phone</th>
+
+                    <th>Email</th>
+
+                    <th>Status</th>
+
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            </tbody>
+
+        </table>
+
+    </main>
+
+    <div id="customerModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2>Add Customer</h2>
+
+        <input
+            id="customerName"
+            type="text"
+            placeholder="Full Name">
+
+        <input
+            id="customerPhone"
+            type="text"
+            placeholder="Phone Number">
+
+        <input
+            id="customerEmail"
+            type="email"
+            placeholder="Email Address">
+
+        <input
+            id="customerUsername"
+            type="text"
+            placeholder="Username">
+
+        <input
+            id="customerPassword"
+            type="password"
+            placeholder="Password">
+
+        <div class="modal-buttons">
+
+            <button id="saveCustomerButton">
+                Save Customer
+            </button>
+
+            <button id="cancelCustomerButton">
+                Cancel
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <script src="/js/customers.js"></script>
+
+</body>
+
+</html>

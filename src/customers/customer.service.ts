@@ -25,7 +25,7 @@ export class CustomerService {
                     full_name,
                     phone,
                     email,
-                    status,
+                    account_status,
                     created_at,
                     updated_at
                 )
@@ -79,15 +79,16 @@ async listCustomers(
         const customers = await env.swagi_intech_db
             .prepare(`
                 SELECT
-                    id,
-                    tenant_id,
-                    full_name,
-                    phone,
-                    email,
-                    status,
-                    created_at,
-                    updated_at
-                FROM customers
+    id,
+    tenant_id,
+    full_name,
+    phone,
+    email,
+    username,
+    account_status,
+    created_at,
+    updated_at
+FROM customers
                 ORDER BY created_at DESC
             `)
             .all();

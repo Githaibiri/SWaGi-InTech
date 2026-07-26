@@ -72,5 +72,33 @@ export class CustomerService {
         };
 
     }
+async listCustomers(
+        env: Env
+    ) {
 
+        const customers = await env.swagi_intech_db
+            .prepare(`
+                SELECT
+                    id,
+                    tenant_id,
+                    full_name,
+                    phone,
+                    email,
+                    status,
+                    created_at,
+                    updated_at
+                FROM customers
+                ORDER BY created_at DESC
+            `)
+            .all();
+
+        return {
+
+            success: true,
+
+            customers: customers.results
+
+        };
+
+    }
 }

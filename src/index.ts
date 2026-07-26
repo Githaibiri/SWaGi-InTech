@@ -10,6 +10,8 @@ import { updateTenant } from "./routes/updateTenant";
 import { suspendTenant } from "./routes/suspendTenant";
 import { deleteTenant } from "./routes/deleteTenant";
 import { dashboard } from "./dashboard/dashboard";
+import { createCustomer } from "./customers/createCustomer";
+import { listCustomers } from "./customers/listCustomers";
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -153,6 +155,38 @@ if (
   }
 
   return dashboard(request, env);
+
+}
+
+// Create customer
+if (
+  url.pathname === "/admin/customers" &&
+  request.method === "POST"
+) {
+
+  const auth = await requireSession(request, env);
+
+  if (auth) {
+    return auth;
+  }
+
+  return createCustomer(request, env);
+
+}
+
+// List customers
+if (
+  url.pathname === "/admin/customers" &&
+  request.method === "GET"
+) {
+
+  const auth = await requireSession(request, env);
+
+  if (auth) {
+    return auth;
+  }
+
+  return listCustomers(env);
 
 }
 

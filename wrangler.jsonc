@@ -24,6 +24,7 @@
 			"binding": "swagi_intech_db",
 			"database_name": "swagi-intech-db",
 			"database_id": "61d5bf80-767d-4303-bd83-a2fd3cbf9c54",
+			"migrations_dir": "database/migrations",
 			"remote": true
 		}
 	]

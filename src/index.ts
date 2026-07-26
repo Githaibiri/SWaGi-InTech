@@ -124,24 +124,6 @@ if (
 
 }
 
-// Delete tenant
-if (
-  url.pathname.startsWith("/admin/tenants/") &&
-  request.method === "DELETE"
-) {
-
-  const auth = await requireSession(request, env);
-
-  if (auth) {
-    return auth;
-  }
-
-  const id = url.pathname.split("/").pop()!;
-
-  return deleteTenant(env, id);
-
-}
-
 // Dashboard statistics
 if (
   url.pathname === "/admin/dashboard" &&
@@ -163,6 +145,7 @@ if (
   url.pathname === "/admin/customers" &&
   request.method === "POST"
 ) {
+
 
   const auth = await requireSession(request, env);
 

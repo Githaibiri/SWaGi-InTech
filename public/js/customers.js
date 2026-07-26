@@ -123,6 +123,20 @@ async function saveCustomer() {
 
     modal.style.display = "none";
 
-    loadCustomers();
+// Clear form
+
+document.getElementById("customerName").value = "";
+
+document.getElementById("customerPhone").value = "";
+
+document.getElementById("customerEmail").value = "";
+
+document.getElementById("customerUsername").value = "";
+
+document.getElementById("customerPassword").value = "";
+
+// Reload customers
+
+loadCustomers();
 
 }

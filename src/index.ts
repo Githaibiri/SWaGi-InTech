@@ -5,11 +5,11 @@ import { createSuperAdmin } from "./setup/createSuperAdmin.service";
 import { logout } from "./routes/logout";
 import { requireSession } from "./auth/session.middleware";
 import { createTenant } from "./routes/tenant";
-import { dashboardStats } from "./routes/dashboard";
 import { listTenants } from "./routes/tenants";
 import { updateTenant } from "./routes/updateTenant";
 import { suspendTenant } from "./routes/suspendTenant";
 import { deleteTenant } from "./routes/deleteTenant";
+import { dashboard } from "./dashboard/dashboard";
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -152,7 +152,7 @@ if (
     return auth;
   }
 
-  return dashboardStats(env);
+  return dashboard(request, env);
 
 }
 

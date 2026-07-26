@@ -2,24 +2,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
 
-        const response = await fetch("/admin/dashboard", {
-            headers: {
-                Authorization: "Bearer demo-token"
-            }
-        });
+        const response = await fetch("/admin/dashboard");
 
         const data = await response.json();
 
-        document.getElementById("totalTenants").textContent =
-            data.totalTenants;
+        if (!data.success) return;
 
-        document.getElementById("activeTenants").textContent =
-            data.activeTenants;
+        document.getElementById("tenantCount").textContent =
+            data.statistics.tenants;
 
-        document.getElementById("trialTenants").textContent =
-            data.trialTenants;
+    }
 
-    } catch (error) {
+    catch (error) {
 
         console.error(error);
 

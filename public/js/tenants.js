@@ -173,3 +173,81 @@ async function deleteTenant(id) {
     location.reload();
 
 }
+
+// Create Tenant Modal
+
+const createTenantModal =
+    document.getElementById("createTenantModal");
+
+const createTenantButton =
+    document.getElementById("createTenantButton");
+
+const cancelTenantButton =
+    document.getElementById("cancelTenantButton");
+
+createTenantButton.addEventListener("click", () => {
+
+    createTenantModal.style.display = "block";
+
+});
+
+cancelTenantButton.addEventListener("click", () => {
+
+    createTenantModal.style.display = "none";
+
+});
+
+const saveTenantCreateButton =
+    document.getElementById("saveTenantCreateButton");
+
+saveTenantCreateButton.addEventListener("click", saveTenant);
+
+async function saveTenant() {
+
+    const tenant = {
+
+        business_name:
+            document.getElementById("businessName").value,
+
+        contact_person:
+            document.getElementById("contactPerson").value,
+
+        email:
+            document.getElementById("tenantEmail").value,
+
+        phone:
+            document.getElementById("tenantPhone").value
+
+    };
+
+    const response = await fetch("/admin/tenants", {
+
+        method: "POST",
+
+        credentials: "include",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(tenant)
+
+    });
+
+    const result = await response.json();
+
+    if (!result.success) {
+
+        alert(result.message);
+
+        return;
+
+    }
+
+    alert(result.message);
+
+    createTenantModal.style.display = "none";
+
+    location.reload();
+
+}

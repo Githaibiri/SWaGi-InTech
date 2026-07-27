@@ -12,6 +12,8 @@ import { deleteTenant } from "./routes/deleteTenant";
 import { dashboard } from "./dashboard/dashboard";
 import { createCustomer } from "./customers/createCustomer";
 import { listCustomers } from "./customers/listCustomers";
+import { createTenantAdmin } from "./tenantAdmins/createTenantAdmin";
+import { listTenantAdmins } from "./tenantAdmins/listTenantAdmins";
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -124,6 +126,24 @@ if (
 
 }
 
+// Delete tenant
+if (
+  url.pathname.startsWith("/admin/tenants/") &&
+  request.method === "DELETE"
+) {
+
+  const auth = await requireSession(request, env);
+
+  if (auth) {
+    return auth;
+  }
+
+  const id = url.pathname.split("/").pop()!;
+
+  return deleteTenant(env, id);
+
+}
+
 // Dashboard statistics
 if (
   url.pathname === "/admin/dashboard" &&
@@ -137,6 +157,38 @@ if (
   }
 
   return dashboard(request, env);
+
+}
+
+// Create Tenant Administrator
+if (
+  url.pathname === "/admin/tenant-admins" &&
+  request.method === "POST"
+) {
+
+  const auth = await requireSession(request, env);
+
+  if (auth) {
+    return auth;
+  }
+
+  return createTenantAdmin(request, env);
+
+}
+
+// List Tenant Administrators
+if (
+  url.pathname === "/admin/tenant-admins" &&
+  request.method === "GET"
+) {
+
+  const auth = await requireSession(request, env);
+
+  if (auth) {
+    return auth;
+  }
+
+  return listTenantAdmins(env);
 
 }
 

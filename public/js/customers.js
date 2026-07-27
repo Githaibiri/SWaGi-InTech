@@ -78,24 +78,22 @@ async function saveCustomer() {
 
     const customer = {
 
-        tenant_id: "YOUR_TENANT_ID",
+    full_name:
+        document.getElementById("customerName").value,
 
-        full_name:
-            document.getElementById("customerName").value,
+    phone:
+        document.getElementById("customerPhone").value,
 
-        phone:
-            document.getElementById("customerPhone").value,
+    email:
+        document.getElementById("customerEmail").value,
 
-        email:
-            document.getElementById("customerEmail").value,
+    username:
+        document.getElementById("customerUsername").value,
 
-        username:
-            document.getElementById("customerUsername").value,
+    password:
+        document.getElementById("customerPassword").value
 
-        password:
-            document.getElementById("customerPassword").value
-
-    };
+};
 
     const response = await fetch("/admin/customers", {
 

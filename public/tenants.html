@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SWaGi InTech... | Tenants</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SWaGi InTech... | Tenant Management</title>
 
     <link rel="stylesheet" href="css/dashboard.css">
+
 </head>
 
 <body>
@@ -15,105 +21,394 @@
     <h2>SWaGi InTech...</h2>
 
     <ul>
-        <li onclick="location.href='dashboard.html'">🏠 Dashboard</li>
-        <li><strong>🏢 Tenants</strong></li>
-        <li>📦 Packages</li>
-        <li>📡 Routers</li>
-        <li>💳 Billing</li>
-        <li>📊 Reports</li>
-        <li>⚙ Settings</li>
-        <li>🚪 Logout</li>
+
+        <li onclick="location.href='dashboard.html'">
+            🏠 Dashboard
+        </li>
+
+        <li>
+            <strong>🏢 Tenants</strong>
+        </li>
+
+        <li onclick="location.href='tenant-admins.html'">
+            👤 Tenant Administrators
+        </li>
+
+        <li>
+            👥 Customers
+        </li>
+
+        <li>
+            📦 Packages
+        </li>
+
+        <li>
+            🎟 Vouchers
+        </li>
+
+        <li>
+            📡 MikroTik
+        </li>
+
+        <li>
+            💳 Billing
+        </li>
+
+        <li>
+            📊 Reports
+        </li>
+
+        <li>
+            ⚙ Settings
+        </li>
+
+        <li>
+            🚪 Logout
+        </li>
+
     </ul>
 
 </div>
 
 <div class="main">
 
-    <header>
+<header>
 
-        <h1>Tenant Management</h1>
+<h1>Tenant Management</h1>
 
-        <p>Manage all Wi-Fi businesses using SWaGi InTech...</p>
+<p>
 
-    </header>
+Manage every ISP using the SWaGi InTech... platform.
 
-    <button id="createTenantButton">
-        ➕ Create Tenant
-    </button>
+</p>
 
-    <br><br>
+</header>
 
-    <input
-        type="text"
-        id="searchBox"
-        placeholder="Search tenants..."
-        style="padding:10px;width:300px;"
-    >
+<div class="dashboard-cards">
 
-    <br><br>
+<div class="card">
 
-    <table id="tenantTable" width="100%" border="1" cellspacing="0" cellpadding="10">
+<h3>Total Tenants</h3>
 
-        <thead>
-
-        <tr>
-
-            <th>Business</th>
-            <th>Contact</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Status</th>
-            <th>Subscription</th>
-            <th>Actions</th>
-
-        </tr>
-
-        </thead>
-
-        <tbody id="tenantBody">
-
-        </tbody>
-
-    </table>
+<p id="totalTenants">0</p>
 
 </div>
 
-<div id="editModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.5);">
+<div class="card">
 
-  <div style="background:white; width:500px; margin:80px auto; padding:20px; border-radius:10px;">
+<h3>Active</h3>
 
-    <h2>Edit Tenant</h2>
+<p id="activeTenants">0</p>
 
-    <input type="hidden" id="editId">
+</div>
 
-    <p>
-      <label>Business Name</label><br>
-      <input type="text" id="editBusiness" style="width:100%;">
-    </p>
+<div class="card">
 
-    <p>
-      <label>Contact Person</label><br>
-      <input type="text" id="editContact" style="width:100%;">
-    </p>
+<h3>Suspended</h3>
 
-    <p>
-      <label>Email</label><br>
-      <input type="email" id="editEmail" style="width:100%;">
-    </p>
+<p id="suspendedTenants">0</p>
 
-    <p>
-      <label>Phone</label><br>
-      <input type="text" id="editPhone" style="width:100%;">
-    </p>
+</div>
 
-    <button id="saveTenantButton">Save</button>
-    <button onclick="closeModal()">Cancel</button>
+<div class="card">
 
-  </div>
+<h3>Expiring Soon</h3>
+
+<p id="expiringTenants">0</p>
+
+</div>
+
+</div>
+
+<br>
+
+<div
+style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+">
+
+<input
+type="text"
+id="searchBox"
+placeholder="Search tenants..."
+style="width:350px;padding:10px;">
+
+<button id="createTenantButton">
+
+➕ Create Tenant
+
+</button>
+
+</div>
+
+<br>
+
+<table
+id="tenantTable"
+width="100%"
+border="1"
+cellspacing="0"
+cellpadding="10">
+
+<thead>
+
+<tr>
+
+<th>Business</th>
+
+<th>Contact</th>
+
+<th>Email</th>
+
+<th>Phone</th>
+
+<th>Status</th>
+
+<th>Subscription</th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tenantBody">
+
+</tbody>
+
+</table>
+
+</div>
+
+<!-- Create Tenant Modal -->
+
+<div
+id="tenantModal"
+style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.5);
+">
+
+<div
+style="
+background:white;
+width:500px;
+margin:70px auto;
+padding:25px;
+border-radius:12px;
+">
+
+<h2>Create Tenant</h2>
+
+<p>
+
+<label>Business Name</label>
+
+<br>
+
+<input
+type="text"
+id="businessName"
+style="width:100%;">
+
+</p>
+
+<p>
+
+<label>Contact Person</label>
+
+<br>
+
+<input
+type="text"
+id="contactPerson"
+style="width:100%;">
+
+</p>
+
+<p>
+
+<label>Email</label>
+
+<br>
+
+<input
+type="email"
+id="email"
+style="width:100%;">
+
+</p>
+
+<p>
+
+<label>Phone</label>
+
+<br>
+
+<input
+type="text"
+id="phone"
+style="width:100%;">
+
+</p>
+
+<p>
+
+<label>Subscription</label>
+
+<br>
+
+<select
+id="subscription"
+style="width:100%;">
+
+<option value="trial">
+
+Free Trial
+
+</option>
+
+<option value="monthly">
+
+Monthly
+
+</option>
+
+<option value="yearly">
+
+Yearly
+
+</option>
+
+</select>
+
+</p>
+
+<br>
+
+<button id="saveTenantButton">
+
+Save Tenant
+
+</button>
+
+<button id="cancelTenantButton">
+
+Cancel
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Edit Modal -->
+
+<div id="editModal"
+style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.5);
+">
+
+<div
+style="
+background:white;
+width:500px;
+margin:70px auto;
+padding:25px;
+border-radius:12px;
+">
+
+<h2>Edit Tenant</h2>
+
+<input
+type="hidden"
+id="editId">
+
+<p>
+
+<label>Business Name</label>
+
+<br>
+
+<input
+type="text"
+id="editBusiness"
+style="width:100%;">
+
+</p>
+
+<p>
+
+<label>Contact Person</label>
+
+<br>
+
+<input
+type="text"
+id="editContact"
+style="width:100%;">
+
+</p>
+
+<p>
+
+<label>Email</label>
+
+<br>
+
+<input
+type="email"
+id="editEmail"
+style="width:100%;">
+
+</p>
+
+<p>
+
+<label>Phone</label>
+
+<br>
+
+<input
+type="text"
+id="editPhone"
+style="width:100%;">
+
+</p>
+
+<br>
+
+<button id="updateTenantButton">
+
+Update Tenant
+
+</button>
+
+<button onclick="closeModal()">
+
+Cancel
+
+</button>
+
+</div>
 
 </div>
 
 <script src="js/tenants.js"></script>
 
 </body>
+
 </html>

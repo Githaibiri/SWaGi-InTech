@@ -22,8 +22,6 @@ export interface Customer {
 
 export interface CreateCustomerRequest {
 
-    tenant_id: string;
-
     full_name: string;
 
     phone: string;

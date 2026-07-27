@@ -9,9 +9,10 @@ import type {
 export class CustomerService {
 
     async createCustomer(
-        env: Env,
-        request: CreateCustomerRequest
-    ): Promise<CustomerResponse> {
+    env: Env,
+    tenantId: string,
+    request: CreateCustomerRequest
+): Promise<CustomerResponse> {
 
         const id = randomUUID();
 
@@ -33,9 +34,9 @@ export class CustomerService {
             `)
             .bind(
                 id,
-                request.tenant_id,
-                request.full_name,
-                request.phone,
+tenantId,
+request.full_name,
+request.phone,
                 request.email ?? null,
                 "active",
                 now,
@@ -53,7 +54,7 @@ export class CustomerService {
 
                 id,
 
-                tenant_id: request.tenant_id,
+                tenant_id: tenantId,
 
                 full_name: request.full_name,
 

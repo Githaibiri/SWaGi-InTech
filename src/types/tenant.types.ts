@@ -11,10 +11,17 @@ export interface Tenant {
 }
 
 export interface CreateTenantRequest {
+
   business_name: string;
+
   contact_person: string;
+
   email: string;
+
   phone: string;
+
+  subscription_status: string;
+
 }
 
 export interface TenantResponse {

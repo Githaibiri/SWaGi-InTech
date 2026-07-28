@@ -84,13 +84,13 @@ Manage every ISP using the SWaGi InTech... platform.
 
 </header>
 
-<div class="dashboard-cards">
+<section class="cards">
 
 <div class="card">
 
 <h3>Total Tenants</h3>
 
-<p id="totalTenants">0</p>
+<h2 id="totalTenants">0</h2>
 
 </div>
 
@@ -98,7 +98,7 @@ Manage every ISP using the SWaGi InTech... platform.
 
 <h3>Active</h3>
 
-<p id="activeTenants">0</p>
+<h2 id="activeTenants">0</h2>
 
 </div>
 
@@ -106,7 +106,7 @@ Manage every ISP using the SWaGi InTech... platform.
 
 <h3>Suspended</h3>
 
-<p id="suspendedTenants">0</p>
+<h2 id="suspendedTenants">0</h2>
 
 </div>
 
@@ -114,7 +114,7 @@ Manage every ISP using the SWaGi InTech... platform.
 
 <h3>Expiring Soon</h3>
 
-<p id="expiringTenants">0</p>
+<h2 id="expiringTenants">0</h2>
 
 </div>
 
@@ -135,7 +135,9 @@ id="searchBox"
 placeholder="Search tenants..."
 style="width:350px;padding:10px;">
 
-<button id="createTenantButton">
+<button
+id="createTenantButton"
+class="btn btn-primary">
 
 ➕ Create Tenant
 
@@ -145,12 +147,7 @@ style="width:350px;padding:10px;">
 
 <br>
 
-<table
-id="tenantTable"
-width="100%"
-border="1"
-cellspacing="0"
-cellpadding="10">
+<table id="tenantTable">
 
 <thead>
 
@@ -293,7 +290,9 @@ Yearly
 
 <br>
 
-<button id="saveTenantButton">
+<button
+id="saveTenantButton"
+class="btn btn-success">
 
 Save Tenant
 
@@ -391,7 +390,9 @@ style="width:100%;">
 
 <br>
 
-<button id="updateTenantButton">
+<button
+id="updateTenantButton"
+class="btn btn-primary">
 
 Update Tenant
 

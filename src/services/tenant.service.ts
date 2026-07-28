@@ -29,26 +29,28 @@ export class TenantService {
 
     await env.swagi_intech_db
       .prepare(`
-        INSERT INTO tenants (
-          id,
-          business_name,
-          contact_person,
-          email,
-          phone,
-          created_at,
-          updated_at
-        )
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-      `)
+    INSERT INTO tenants (
+      id,
+      business_name,
+      contact_person,
+      email,
+      phone,
+      subscription_status,
+      created_at,
+      updated_at
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+`)
       .bind(
-        id,
-        request.business_name,
-        request.contact_person,
-        request.email,
-        request.phone,
-        now,
-        now
-      )
+    id,
+    request.business_name,
+    request.contact_person,
+    request.email,
+    request.phone,
+    request.subscription_status,
+    now,
+    now
+)
       .run();
 
     return {
@@ -61,7 +63,7 @@ export class TenantService {
         email: request.email,
         phone: request.phone,
         status: "ACTIVE",
-        subscription_status: "TRIAL",
+        subscription_status: request.subscription_status,
         created_at: now,
         updated_at: now
       }

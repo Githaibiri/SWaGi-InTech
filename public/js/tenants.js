@@ -22,19 +22,44 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <td>${tenant.contact_person}</td>
                     <td>${tenant.email}</td>
                     <td>${tenant.phone}</td>
-                    <td>${tenant.status}</td>
-                    <td>${tenant.subscription_status}</td>
                     <td>
-                        <button onclick="editTenant('${tenant.id}')">
-    Edit
+    <span class="badge badge-${tenant.status.toLowerCase()}">
+        ${tenant.status}
+    </span>
+</td>
+
+<td>
+    <span class="badge badge-${tenant.subscription_status.toLowerCase()}">
+        ${tenant.subscription_status}
+    </span>
+</td>
+                    <td>
+
+<button
+class="btn btn-primary"
+onclick="editTenant('${tenant.id}')">
+
+✏ Edit
+
 </button>
-                        <button onclick="toggleTenantStatus('${tenant.id}')">
-    Suspend
+
+<button
+class="btn btn-warning"
+onclick="toggleTenantStatus('${tenant.id}')">
+
+⏸ Suspend
+
 </button>
-                        <button onclick="deleteTenant('${tenant.id}')">
-    Delete
+
+<button
+class="btn btn-danger"
+onclick="deleteTenant('${tenant.id}')">
+
+🗑 Delete
+
 </button>
-                    </td>
+
+</td>
                 </tr>
             `;
 
@@ -82,7 +107,7 @@ function closeModal() {
 }
 
 document
-.getElementById("saveTenantButton")
+.getElementById("updateTenantButton")
 .addEventListener("click", async () => {
 
     const id = document.getElementById("editId").value;
@@ -177,7 +202,7 @@ async function deleteTenant(id) {
 // Create Tenant Modal
 
 const createTenantModal =
-    document.getElementById("createTenantModal");
+    document.getElementById("tenantModal");
 
 const createTenantButton =
     document.getElementById("createTenantButton");
@@ -198,7 +223,7 @@ cancelTenantButton.addEventListener("click", () => {
 });
 
 const saveTenantCreateButton =
-    document.getElementById("saveTenantCreateButton");
+    document.getElementById("saveTenantButton");
 
 saveTenantCreateButton.addEventListener("click", saveTenant);
 
@@ -206,19 +231,22 @@ async function saveTenant() {
 
     const tenant = {
 
-        business_name:
-            document.getElementById("businessName").value,
+    business_name:
+        document.getElementById("businessName").value,
 
-        contact_person:
-            document.getElementById("contactPerson").value,
+    contact_person:
+        document.getElementById("contactPerson").value,
 
-        email:
-            document.getElementById("tenantEmail").value,
+    email:
+        document.getElementById("email").value,
 
-        phone:
-            document.getElementById("tenantPhone").value
+    phone:
+        document.getElementById("phone").value,
 
-    };
+    subscription_status:
+        document.getElementById("subscription").value
+
+};
 
     const response = await fetch("/admin/tenants", {
 

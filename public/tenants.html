@@ -16,61 +16,45 @@
 
 <body>
 
-<div class="sidebar">
+<div class="layout">
+
+<aside class="sidebar">
 
     <h2>SWaGi InTech...</h2>
 
-    <ul>
+    <p class="tagline">
+        Transforming ideas into inventions and innovations.
+    </p>
 
-        <li onclick="location.href='dashboard.html'">
-            🏠 Dashboard
-        </li>
+    <nav>
 
-        <li>
-            <strong>🏢 Tenants</strong>
-        </li>
+        <a href="dashboard.html">📊 Dashboard</a>
 
-        <li onclick="location.href='tenant-admins.html'">
-            👤 Tenant Administrators
-        </li>
+        <a href="tenants.html" class="active">🏢 Tenants</a>
 
-        <li>
-            👥 Customers
-        </li>
+        <a href="tenant-admins.html">👤 Tenant Administrators</a>
 
-        <li>
-            📦 Packages
-        </li>
+        <a href="#">👥 Customers</a>
 
-        <li>
-            🎟 Vouchers
-        </li>
+        <a href="#">📦 Packages</a>
 
-        <li>
-            📡 MikroTik
-        </li>
+        <a href="#">🎫 Vouchers</a>
 
-        <li>
-            💳 Billing
-        </li>
+        <a href="#">💳 Billing</a>
 
-        <li>
-            📊 Reports
-        </li>
+        <a href="#">📡 MikroTik</a>
 
-        <li>
-            ⚙ Settings
-        </li>
+        <a href="#">📈 Reports</a>
 
-        <li>
-            🚪 Logout
-        </li>
+        <a href="#">⚙ Settings</a>
 
-    </ul>
+        <a href="#" id="logoutButton">🚪 Logout</a>
 
-</div>
+    </nav>
 
-<div class="main">
+</aside>
+
+<main class="content">
 
 <header>
 
@@ -406,9 +390,12 @@ Cancel
 
 </div>
 
+</main>
+
 </div>
 
 <script src="js/tenants.js"></script>
+<script src="js/logout.js"></script>
 
 </body>
 

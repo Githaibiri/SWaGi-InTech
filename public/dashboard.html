@@ -29,41 +29,157 @@
 
         <nav>
 
-            <a href="dashboard.html" class="active">📊 Dashboard</a>
+<a href="dashboard.html" class="active">
+📊 Dashboard
+</a>
 
-            <a href="tenants.html">🏢 Tenants</a>
+<button class="nav-group">
 
-            <a href="#">👥 Customers</a>
+👥 Management
 
-            <a href="#">📦 Packages</a>
+<span class="chevron"></span>
 
-            <a href="#">🎫 Vouchers</a>
+</button>
 
-            <a href="#">💳 Billing</a>
+<div class="nav-items">
 
-            <a href="#">📡 MikroTik</a>
+<a href="tenants.html">
+🏢 Tenants
+</a>
 
-            <a href="#">📈 Reports</a>
+<a href="tenant-admins.html">
+👤 Tenant Administrators
+</a>
 
-            <a href="#">⚙ Settings</a>
+<a href="#">
+👥 Customers
+</a>
 
-            <a href="#">🚪 Logout</a>
+<a href="#">
+📦 Packages
+</a>
 
-        </nav>
+<a href="#">
+🎫 Vouchers
+</a>
+
+</div>
+
+<button class="nav-group">
+
+💳 Billing
+
+<span class="chevron"></span>
+
+</button>
+
+<div class="nav-items">
+
+<a href="#">
+💳 Billing
+</a>
+
+<a href="#">
+💰 Transactions
+</a>
+
+</div>
+
+<button class="nav-group">
+
+📡 Network
+
+<span class="chevron"></span>
+
+</button>
+
+<div class="nav-items">
+
+<a href="#">
+📡 MikroTik
+</a>
+
+</div>
+
+<button class="nav-group">
+
+📈 Reports
+
+<span class="chevron"></span>
+
+</button>
+
+<div class="nav-items">
+
+<a href="#">
+📈 Reports
+</a>
+
+</div>
+
+<button class="nav-group">
+
+⚙ System
+
+<span class="chevron"></span>
+
+</button>
+
+<div class="nav-items">
+
+<a href="#">
+⚙ Settings
+</a>
+
+</div>
+
+<a href="#" id="logoutButton">
+
+🚪 Logout
+
+</a>
+
+</nav>
 
     </aside>
 
     <main class="content">
 
-        <header>
+        <header class="topbar">
 
-            <h1>Super Admin Dashboard</h1>
+    <div class="topbar-left">
 
-            <p>
-                Welcome back, Steven Githaibiri.
-            </p>
+        <button id="menuToggle" class="menu-toggle">
+            ☰
+        </button>
 
-        </header>
+        <div>
+
+            <h2>SWaGi InTech...</h2>
+
+            <small>
+                Transforming ideas into inventions and innovations.
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="topbar-right">
+
+        <input
+            type="text"
+            placeholder="Search...">
+
+        <button>🤖</button>
+
+        <button>🔔</button>
+
+        <button>👤</button>
+
+    </div>
+
+</header>
 
         <section class="cards">
 
@@ -120,6 +236,8 @@
 </div>
 
 <script src="js/dashboard.js"></script>
+<script src="js/navigation.js"></script>
+<script src="js/logout.js"></script>
 
 </body>
 

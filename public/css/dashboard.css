@@ -323,3 +323,244 @@ table td .btn{
     margin-bottom:4px;
 
 }
+
+/* ===========================
+   SWaGi InTech Navigation
+=========================== */
+
+.nav-group{
+
+    width:100%;
+    background:none;
+    border:none;
+    color:white;
+    padding:12px;
+    cursor:pointer;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    font-size:15px;
+    border-radius:8px;
+
+    transition:var(--transition);
+
+    margin-bottom:6px;
+
+}
+
+.nav-group:hover{
+
+    background:var(--primary);
+
+}
+
+.nav-items{
+
+    display:none;
+    flex-direction:column;
+    margin-left:15px;
+    margin-bottom:8px;
+
+}
+
+.nav-items.open{
+
+    display:flex;
+
+}
+
+.nav-items a{
+
+    padding:10px;
+    color:white;
+    text-decoration:none;
+    border-radius:6px;
+    font-size:14px;
+
+}
+
+.nav-items a:hover{
+
+    background:#1d4ed8;
+
+}
+
+/* ===== TOP BAR ===== */
+
+.topbar{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+background:white;
+
+padding:15px 25px;
+
+border-radius:12px;
+
+box-shadow:var(--shadow);
+
+margin-bottom:30px;
+
+}
+
+.topbar-left{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+}
+
+.topbar-right{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+}
+
+.topbar-right input{
+
+padding:10px;
+
+border:1px solid #ddd;
+
+border-radius:8px;
+
+width:220px;
+
+}
+
+.menu-toggle{
+
+font-size:24px;
+
+background:none;
+
+border:none;
+
+cursor:pointer;
+
+color:var(--primary);
+
+}
+
+.topbar-right button{
+
+padding:10px;
+
+border:none;
+
+border-radius:8px;
+
+background:#f3f4f6;
+
+cursor:pointer;
+
+}
+
+/* ===== COLLAPSIBLE SIDEBAR ===== */
+
+.sidebar{
+
+transition:.3s;
+
+overflow:hidden;
+
+}
+
+.sidebar.collapsed{
+
+width:80px;
+
+}
+
+.sidebar.collapsed .tagline{
+
+display:none;
+
+}
+
+.sidebar.collapsed h2{
+
+display:none;
+
+}
+
+.sidebar.collapsed nav a{
+
+text-align:center;
+
+font-size:22px;
+
+}
+
+.sidebar.collapsed nav a{
+
+white-space:nowrap;
+
+overflow:hidden;
+
+}
+
+/* Hide Sidebar Completely */
+
+.sidebar{
+
+transition:0.3s ease;
+
+}
+
+.sidebar.hidden{
+
+width:0;
+
+padding:0;
+
+overflow:hidden;
+
+}
+
+.sidebar.hidden *{
+
+display:none;
+
+}
+
+.content{
+
+transition:0.3s ease;
+
+flex:1;
+
+}
+
+.chevron{
+
+    width:10px;
+    height:10px;
+
+    border-right:3px solid rgba(255,255,255,.95);
+    border-bottom:3px solid rgba(255,255,255,.95);
+
+    transform:rotate(45deg);
+
+    transition:transform .25s ease;
+
+    display:inline-block;
+
+    margin-left:auto;
+
+    margin-right:4px;
+
+}

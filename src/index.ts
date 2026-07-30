@@ -14,6 +14,7 @@ import { createCustomer } from "./customers/createCustomer";
 import { listCustomers } from "./customers/listCustomers";
 import { createTenantAdmin } from "./tenantAdmins/createTenantAdmin";
 import { listTenantAdmins } from "./tenantAdmins/listTenantAdmins";
+import { forgotPassword } from "./routes/forgotPassword";
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -63,7 +64,17 @@ if (url.pathname === "/auth/login") {
 
 // Logout route
 if (url.pathname === "/auth/logout") {
-  return logout();
+  return logout(request, env);
+}
+
+// Forgot Password
+if (
+  url.pathname === "/auth/forgot-password" &&
+  request.method === "POST"
+) {
+
+  return forgotPassword(request, env);
+
 }
 
 // Create Tenant route

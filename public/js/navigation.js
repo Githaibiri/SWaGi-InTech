@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     toggle.addEventListener("click", () => {
 
-        sidebar.classList.toggle("hidden");
+        sidebar.classList.toggle("closed");
 
     });
 

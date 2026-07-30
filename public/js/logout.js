@@ -17,7 +17,7 @@ if (logoutButton) {
         try {
 
             await fetch("/auth/logout", {
-                method: "GET",
+                method: "POST",
                 credentials: "include"
             });
 

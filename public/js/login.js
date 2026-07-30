@@ -47,12 +47,16 @@ form.addEventListener("submit", async (event) => {
 
     message.style.color = "green";
 
-    message.textContent = "Login successful...";
+message.textContent = "Login successful...";
 
-    setTimeout(() => {
+// Save the session token
 
-        window.location.href = "/dashboard.html";
+// Save the logged-in user's details (optional but useful)
 
-    }, 1000);
+setTimeout(() => {
+
+    window.location.href = "/dashboard.html";
+
+}, 1000);
 
 });

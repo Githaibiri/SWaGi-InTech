@@ -35,6 +35,17 @@ form.addEventListener("submit", async (event) => {
 
     const result = await response.json();
 
+    if (response.ok && result.token) {
+    localStorage.setItem("token", result.token);
+}
+
+if (result.user) {
+    localStorage.setItem(
+        "user",
+        JSON.stringify(result.user)
+    );
+}
+
     if (!result.success) {
 
         message.style.color = "red";

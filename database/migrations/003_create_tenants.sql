@@ -18,4 +18,16 @@ CREATE TABLE IF NOT EXISTS tenants (
 
     updated_at TEXT NOT NULL
 
+subdomain TEXT UNIQUE,
+
+plan TEXT NOT NULL DEFAULT 'STARTER',
+
+trial_start TEXT,
+
+trial_end TEXT,
+
+branding_logo TEXT,
+
+branding_primary_color TEXT DEFAULT '#3B82F6'
+
 );

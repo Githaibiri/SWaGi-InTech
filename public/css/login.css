@@ -90,3 +90,25 @@ button:hover{
     text-align:center;
     font-weight:bold;
 }
+
+.forgot-password{
+    text-align:center;
+    margin-top:15px;
+}
+
+.forgot-password a{
+    color:#2563eb;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.forgot-password a:hover{
+    text-decoration:underline;
+}
+
+#message{
+    margin-top:20px;
+    text-align:center;
+    font-weight:bold;
+    color:#dc2626;
+}

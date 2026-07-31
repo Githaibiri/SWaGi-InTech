@@ -17,6 +17,8 @@ import { listTenantAdmins } from "./tenantAdmins/listTenantAdmins";
 import { forgotPassword } from "./routes/forgotPassword";
 import { verifyResetCode } from "./routes/verifyResetCode";
 import { resetPassword } from "./routes/resetPassword";
+import { requireRole } from "./auth/role.middleware";
+import { requirePermission } from "./auth/permission.middleware";
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -111,11 +113,15 @@ if (
   request.method === "GET"
 ) {
 
-  const auth = await requireSession(request, env);
+  const auth = await requireRole(
+    request,
+    env,
+    ["SUPER_ADMIN"]
+);
 
-  if (auth) {
+if (auth) {
     return auth;
-  }
+}
 
   return listTenants(env);
 
@@ -127,11 +133,15 @@ if (
   request.method === "PUT"
 ) {
 
-  const auth = await requireSession(request, env);
+  const auth = await requireRole(
+    request,
+    env,
+    ["SUPER_ADMIN"]
+);
 
-  if (auth) {
+if (auth) {
     return auth;
-  }
+}
 
   const id = url.pathname.split("/").pop()!;
 
@@ -145,11 +155,15 @@ if (
   request.method === "PATCH"
 ) {
 
-  const auth = await requireSession(request, env);
+  const auth = await requireRole(
+    request,
+    env,
+    ["SUPER_ADMIN"]
+);
 
-  if (auth) {
+if (auth) {
     return auth;
-  }
+}
 
   const id = url.pathname.split("/").pop()!;
 
@@ -163,11 +177,15 @@ if (
   request.method === "DELETE"
 ) {
 
-  const auth = await requireSession(request, env);
+  const auth = await requireRole(
+    request,
+    env,
+    ["SUPER_ADMIN"]
+);
 
-  if (auth) {
+if (auth) {
     return auth;
-  }
+}
 
   const id = url.pathname.split("/").pop()!;
 
@@ -181,11 +199,15 @@ if (
   request.method === "GET"
 ) {
 
-  const auth = await requireSession(request, env);
+  const auth = await requireRole(
+    request,
+    env,
+    ["SUPER_ADMIN"]
+);
 
-  if (auth) {
+if (auth) {
     return auth;
-  }
+}
 
   return dashboard(request, env);
 
@@ -197,11 +219,15 @@ if (
   request.method === "POST"
 ) {
 
-  const auth = await requireSession(request, env);
+  const auth = await requireRole(
+    request,
+    env,
+    ["SUPER_ADMIN"]
+);
 
-  if (auth) {
+if (auth) {
     return auth;
-  }
+}
 
   return createTenantAdmin(request, env);
 
@@ -213,11 +239,15 @@ if (
   request.method === "GET"
 ) {
 
-  const auth = await requireSession(request, env);
+  const auth = await requireRole(
+    request,
+    env,
+    ["SUPER_ADMIN"]
+);
 
-  if (auth) {
+if (auth) {
     return auth;
-  }
+}
 
   return listTenantAdmins(env);
 
@@ -230,11 +260,15 @@ if (
 ) {
 
 
-  const auth = await requireSession(request, env);
+  const auth = await requireRole(
+    request,
+    env,
+    ["SUPER_ADMIN"]
+);
 
-  if (auth) {
+if (auth) {
     return auth;
-  }
+}
 
   return createCustomer(request, env);
 
@@ -246,11 +280,15 @@ if (
   request.method === "GET"
 ) {
 
-  const auth = await requireSession(request, env);
+  const auth = await requireRole(
+    request,
+    env,
+    ["SUPER_ADMIN"]
+);
 
-  if (auth) {
+if (auth) {
     return auth;
-  }
+}
 
   return listCustomers(env);
 

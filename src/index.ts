@@ -15,6 +15,8 @@ import { listCustomers } from "./customers/listCustomers";
 import { createTenantAdmin } from "./tenantAdmins/createTenantAdmin";
 import { listTenantAdmins } from "./tenantAdmins/listTenantAdmins";
 import { forgotPassword } from "./routes/forgotPassword";
+import { verifyResetCode } from "./routes/verifyResetCode";
+import { resetPassword } from "./routes/resetPassword";
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -74,6 +76,24 @@ if (
 ) {
 
   return forgotPassword(request, env);
+
+}
+
+if (
+  url.pathname === "/auth/verify-reset-code" &&
+  request.method === "POST"
+) {
+
+  return verifyResetCode(request, env);
+
+}
+
+if (
+  url.pathname === "/auth/reset-password" &&
+  request.method === "POST"
+) {
+
+  return resetPassword(request, env);
 
 }
 

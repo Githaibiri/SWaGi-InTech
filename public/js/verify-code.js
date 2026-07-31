@@ -1,5 +1,4 @@
 const form = document.getElementById("loginForm");
-
 const message = document.getElementById("message");
 
 form.addEventListener("submit", async (event) => {
@@ -8,27 +7,33 @@ form.addEventListener("submit", async (event) => {
 
     message.textContent = "";
 
+    const code = document.getElementById("code").value;
+
     const identifier =
-    document.getElementById("email").value;
+        sessionStorage.getItem("reset_identifier");
 
-    const password =
-        document.getElementById("password").value;
+    if (!identifier) {
 
-    const response = await fetch("/auth/login", {
+        message.style.color = "red";
+
+        message.textContent =
+            "Reset session expired. Start again.";
+
+        return;
+
+    }
+
+    const response = await fetch("/auth/verify-reset-code", {
 
         method: "POST",
 
         headers: {
-
             "Content-Type": "application/json"
-
         },
 
         body: JSON.stringify({
-
             identifier,
-            password
-
+            code
         })
 
     });
@@ -45,18 +50,12 @@ form.addEventListener("submit", async (event) => {
 
     }
 
-    message.style.color = "green";
+    sessionStorage.setItem(
+        "verified_code",
+        code
+    );
 
-message.textContent = "Login successful...";
-
-// Save the session token
-
-// Save the logged-in user's details (optional but useful)
-
-setTimeout(() => {
-
-    window.location.href = "/dashboard.html";
-
-}, 1000);
+    window.location.href =
+        "/reset-password.html";
 
 });

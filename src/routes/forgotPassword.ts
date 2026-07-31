@@ -34,7 +34,7 @@ export async function forgotPassword(
       body.identifier
     );
 
-  } catch {
+  } catch (error) {
 
     return new Response(
       JSON.stringify({

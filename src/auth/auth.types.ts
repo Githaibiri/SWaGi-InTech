@@ -1,7 +1,7 @@
 import type { D1Database } from "@cloudflare/workers-types";
 
 export interface LoginRequest {
-  email: string;
+  identifier: string;
   password: string;
 }
 

@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>SWaGi InTech... | Super Admin Login</title>
+    <title>SWaGi InTech... | Verify Reset Code</title>
 
     <link rel="stylesheet"
           href="css/login.css">
@@ -27,30 +27,26 @@
             Transforming ideas into inventions and innovations.
         </p>
 
-        <h2>Super Admin Login</h2>
+        <h2>Verify Reset Code</h2>
 
-        <form id="loginForm">
+        <form id="verifyCodeForm">
 
-            <label>Email Address</label>
+            <label>Verification Code</label>
 
-            <input
-                type="text"
-                id="email"
-                placeholder="Enter email or Phone Number"
-                required
-            >
-
-            <label>Password</label>
+<input
+    type="text"
+    id="code"
+    placeholder="Enter the 6-digit code"
+    required
+>
 
             <input
-                type="password"
-                id="password"
-                placeholder="Enter password"
-                required
-            >
+    type="hidden"
+    id="identifier"
+>
 
             <button type="submit">
-                Login
+                Verify Code
             </button>
 
             <p class="forgot-password">
@@ -67,7 +63,7 @@
 
 </div>
 
-<script src="js/login.js"></script>
+<script src="js/verify-code.js"></script>
 
 </body>
 

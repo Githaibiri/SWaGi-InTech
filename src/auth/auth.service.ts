@@ -30,10 +30,11 @@ export class AuthService {
           is_active
         FROM admin_users
         WHERE email = ?
-        LIMIT 1
+   OR phone = ?
+LIMIT 1
       `
       )
-      .bind(request.email)
+      .bind(request.identifier, request.identifier)
       .first<AuthUser>();
 
     if (!user) {
@@ -90,7 +91,7 @@ await env.swagi_intech_db
       success: true,
       message: "Login successful.",
       user: {
-        id: Number(user.id),
+        id: user.id,
         full_name: user.full_name,
         email: user.email,
         role: user.role

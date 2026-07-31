@@ -26,25 +26,27 @@ export async function createSuperAdmin(env: Env) {
         tenant_id,
         username,
         email,
+        phone,
         password_hash,
         full_name,
         role,
         created_at,
         updated_at
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `)
     .bind(
-      id,
-      null,
-      "SWaGi...",
-      "wanjohisteven02@gmail.com",
-      passwordHash,
-      "Steven Githaibiri",
-      "SUPER_ADMIN",
-      now,
-      now
-    )
+  id,
+  null,
+  "SWaGi...",
+  "wanjohisteven02@gmail.com",
+  "+254740207808",
+  passwordHash,
+  "Steven Githaibiri",
+  "SUPER_ADMIN",
+  now,
+  now
+)
     .run();
 
   return {

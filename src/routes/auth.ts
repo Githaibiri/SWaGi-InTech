@@ -7,14 +7,18 @@ export async function login(
 ): Promise<Response> {
   try {
     const body = await request.json() as LoginRequest;
+    console.log(body)
+    console.log("LOGIN BODY:", body);
 
     return await loginController(env, body);
 
-  } catch {
+  } catch (error) {
     return new Response(
       JSON.stringify({
         success: false,
-        message: "Invalid request."
+        message: error instanceof Error 
+? error.message 
+: String(error)
       }),
       {
         status: 400,

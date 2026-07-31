@@ -48,8 +48,13 @@ form.addEventListener("submit", async (event) => {
 
     message.style.color = "green";
 
-    message.textContent =
-        "Verification code generated.";
+message.textContent =
+    "Verification code generated.";
+
+alert(
+    "Your verification code is: " +
+    result.verification_code
+);
 
     setTimeout(() => {
 

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Package Management | SWaGi InTech...</title>
+
+<link rel="stylesheet" href="../css/dashboard.css">
+<link rel="stylesheet" href="../css/packages.css">
+
+</head>
+
+<body>
+
+<div class="layout">
+
+<aside class="sidebar">
+
+<h2>SWaGi InTech...</h2>
+
+<p class="tagline">
+Transforming ideas into inventions and innovations.
+</p>
+
+<nav>
+
+<a href="tenant-dashboard.html">
+📊 Dashboard
+</a>
+
+<a href="packages.html" class="active">
+📦 Packages
+</a>
+
+<a href="#">
+👥 Customers
+</a>
+
+<a href="#">
+🎫 Vouchers
+</a>
+
+<a href="#">
+💳 Transactions
+</a>
+
+<a href="#">
+⚙ Settings
+</a>
+
+<a href="#" id="logoutButton">
+🚪 Logout
+</a>
+
+</nav>
+
+</aside>
+
+<main class="content">
+
+<header class="topbar">
+
+<div>
+
+<h2>Package Management</h2>
+
+<small>Create and manage Internet packages</small>
+
+</div>
+
+<button
+class="btn btn-primary"
+id="newPackageButton">
+
++ New Package
+
+</button>
+
+</header>
+
+<section class="panel">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Package</th>
+
+<th>Price</th>
+
+<th>Duration</th>
+
+<th>Status</th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="packagesTable">
+
+</tbody>
+
+</table>
+
+</section>
+
+</main>
+
+<div id="packageModal" class="modal">
+
+<div class="modal-content">
+
+<h2 id="modalTitle">
+
+Create Package
+
+</h2>
+
+<label>Package Name</label>
+
+<input
+type="text"
+id="packageName">
+
+<label>Description</label>
+
+<textarea
+id="packageDescription"></textarea>
+
+<label>Price (KES)</label>
+
+<input
+type="number"
+id="packagePrice">
+
+<label>Duration (Minutes)</label>
+
+<input
+type="number"
+id="packageDuration">
+
+<div class="modal-buttons">
+
+<button
+class="btn btn-secondary"
+id="cancelPackage">
+
+Cancel
+
+</button>
+
+<button
+class="btn btn-primary"
+id="savePackage">
+
+Save Package
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script src="js/packages.js"></script>
+
+</body>
+
+</html>

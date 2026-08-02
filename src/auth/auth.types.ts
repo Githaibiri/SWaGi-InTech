@@ -6,8 +6,8 @@ export interface LoginRequest {
 }
 
 export interface AuthUser {
-  id: number;
-  tenant_id: number | null;
+  id: string;
+  tenant_id: string | null;
   full_name: string;
   email: string;
   password_hash: string;
@@ -19,10 +19,11 @@ export interface LoginResponse {
   success: boolean;
   message: string;
   user?: {
-    id: number;
+    id: string;
+    tenant_id: string | null;
     full_name: string;
     email: string;
-    role: string;
+    role: "SUPER_ADMIN" | "TENANT_ADMIN";
   };
   token?: string;
 }

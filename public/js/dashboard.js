@@ -28,7 +28,22 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         document.getElementById("tenantCount").textContent =
-            data.statistics.tenants;
+    data.statistics.tenants;
+
+document.getElementById("activeTenantCount").textContent =
+    data.statistics.activeTenants;
+
+document.getElementById("suspendedTenantCount").textContent =
+    data.statistics.suspendedTenants;
+
+document.getElementById("trialTenantCount").textContent =
+    data.statistics.trialTenants;
+
+document.getElementById("monthlyTenantCount").textContent =
+    data.statistics.monthlyTenants;
+
+document.getElementById("yearlyTenantCount").textContent =
+    data.statistics.yearlyTenants;
 
         loadingScreen.style.display = "none";
 

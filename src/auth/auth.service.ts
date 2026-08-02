@@ -91,11 +91,12 @@ await env.swagi_intech_db
       success: true,
       message: "Login successful.",
       user: {
-        id: user.id,
-        full_name: user.full_name,
-        email: user.email,
-        role: user.role
-      },
+    id: user.id,
+    tenant_id: user.tenant_id,
+    full_name: user.full_name,
+    email: user.email,
+    role: user.role
+},
       token
     };
   }

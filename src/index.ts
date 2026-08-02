@@ -19,10 +19,24 @@ import { verifyResetCode } from "./routes/verifyResetCode";
 import { resetPassword } from "./routes/resetPassword";
 import { requireRole } from "./auth/role.middleware";
 import { requirePermission } from "./auth/permission.middleware";
+import { createPackage } from "./packages/createPackage";
+import { listPackages } from "./packages/listPackages";
+import { tenantDashboard } from "./tenantDashboard/dashboard";
+import { updatePackage } from "./packages/updatePackage";
+import { deletePackage } from "./packages/deletePackage";
+import { changePackageStatus } from "./packages/changePackageStatus";
+import { getPackage } from "./packages/getPackage";
+
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
+  
     const url = new URL(request.url);
+
+    console.log(
+  request.method,
+  url.pathname
+);
 
     // Home route
     if (url.pathname === "/") {
@@ -291,6 +305,175 @@ if (auth) {
 }
 
   return listCustomers(env);
+
+}
+
+console.log("POST /tenant/packages route reached");
+
+// Create Package
+if (
+  url.pathname === "/api/tenant/packages" &&
+  request.method === "POST"
+) {
+
+  console.log("POST /tenant/packages reached");
+
+  const auth = await requireRole(
+    request,
+    env,
+    ["TENANT_ADMIN"]
+  );
+
+  if (auth) {
+    return auth;
+  }
+
+  return createPackage(request, env);
+
+}
+
+// Get Single Package
+if (
+    url.pathname.startsWith("/api/tenant/packages/") &&
+    request.method === "GET"
+) {
+
+    const auth = await requireRole(
+        request,
+        env,
+        ["TENANT_ADMIN"]
+    );
+
+    if (auth) {
+        return auth;
+    }
+
+    const packageId =
+        url.pathname.split("/").pop()!;
+
+    return getPackage(
+        env,
+        packageId
+    );
+
+}
+
+// List Packages
+if (
+  url.pathname === "/api/tenant/packages" &&
+  request.method === "GET"
+) {
+
+  const auth = await requireRole(
+    request,
+    env,
+    ["TENANT_ADMIN"]
+  );
+
+  if (auth) {
+    return auth;
+  }
+
+  return listPackages(request, env);
+
+}
+
+// Update Package
+if (
+  url.pathname.startsWith("/api/tenant/packages/") &&
+  request.method === "PUT"
+) {
+
+  const auth = await requireRole(
+    request,
+    env,
+    ["TENANT_ADMIN"]
+  );
+
+  if (auth) {
+    return auth;
+  }
+
+  const packageId = url.pathname.split("/").pop()!;
+
+  return updatePackage(
+    request,
+    env,
+    packageId
+  );
+
+}
+
+// Delete Package
+if (
+  url.pathname.startsWith("/api/tenant/packages/") &&
+  request.method === "DELETE"
+) {
+
+  const auth = await requireRole(
+    request,
+    env,
+    ["TENANT_ADMIN"]
+  );
+
+  if (auth) {
+    return auth;
+  }
+
+  const packageId = url.pathname.split("/").pop()!;
+
+  return deletePackage(
+    env,
+    packageId
+  );
+
+}
+
+// Activate / Suspend Package
+if (
+  url.pathname.startsWith("/api/tenant/packages/") &&
+  request.method === "PATCH"
+) {
+
+  const auth = await requireRole(
+    request,
+    env,
+    ["TENANT_ADMIN"]
+  );
+
+  if (auth) {
+    return auth;
+  }
+
+  const packageId = url.pathname.split("/").pop()!;
+
+  return changePackageStatus(
+
+    request,
+    env,
+    packageId
+
+  );
+
+}
+
+// Tenant Dashboard
+if (
+  url.pathname === "/tenant/dashboard" &&
+  request.method === "GET"
+) {
+
+  const auth = await requireRole(
+    request,
+    env,
+    ["TENANT_ADMIN"]
+  );
+
+  if (auth) {
+    return auth;
+  }
+
+  return tenantDashboard(request, env);
 
 }
 

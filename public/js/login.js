@@ -15,23 +15,16 @@ form.addEventListener("submit", async (event) => {
         document.getElementById("password").value;
 
     const response = await fetch("/auth/login", {
-
-        method: "POST",
-
-        headers: {
-
-            "Content-Type": "application/json"
-
-        },
-
-        body: JSON.stringify({
-
-            identifier,
-            password
-
-        })
-
-    });
+    method: "POST",
+    credentials: "include",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        identifier,
+        password
+    })
+});
 
     const result = await response.json();
 
@@ -66,7 +59,17 @@ message.textContent = "Login successful...";
 
 setTimeout(() => {
 
-    window.location.href = "/dashboard.html";
+    if (result.user.role === "SUPER_ADMIN") {
+
+        window.location.href = "/dashboard.html";
+
+    }
+
+    else if (result.user.role === "TENANT_ADMIN") {
+
+        window.location.href = "/tenant-dashboard.html";
+
+    }
 
 }, 1000);
 

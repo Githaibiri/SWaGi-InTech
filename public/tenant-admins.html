@@ -1,157 +1,552 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SWaGi InTech... | Tenants</title>
 
-    <link rel="stylesheet" href="css/dashboard.css">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        SWaGi InTech... | Tenant Administrators
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/dashboard.css">
+
 </head>
 
 <body>
 
-<div class="sidebar">
+<div id="loadingScreen">
+
+    <div class="loading-box">
+
+        <h2>SWaGi InTech...</h2>
+
+        <p>
+            Loading Tenant Administrators...
+        </p>
+
+    </div>
+
+</div>
+
+<div class="layout">
+
+<aside class="sidebar">
 
     <h2>SWaGi InTech...</h2>
 
-    <ul>
-        <li onclick="location.href='dashboard.html'">🏠 Dashboard</li>
-        <li><strong>🏢 Tenants</strong></li>
-        <li>📦 Packages</li>
-        <li>📡 Routers</li>
-        <li>💳 Billing</li>
-        <li>📊 Reports</li>
-        <li>⚙ Settings</li>
-        <li>🚪 Logout</li>
-    </ul>
+    <p class="tagline">
+        Transforming ideas into inventions and innovations.
+    </p>
+
+    <nav>
+
+        <a href="dashboard.html">
+            📊 Dashboard
+        </a>
+
+        <button class="nav-group">
+
+            👥 Management
+
+            <span class="chevron"></span>
+
+        </button>
+
+        <div class="nav-items open">
+
+            <a href="tenants.html">
+                🏢 Tenants
+            </a>
+
+            <a
+                href="tenant-admins.html"
+                class="active">
+
+                👤 Tenant Administrators
+
+            </a>
+
+            <a href="customers.html">
+                👥 Customers
+            </a>
+
+            <a href="#">
+                📦 Packages
+            </a>
+
+            <a href="#">
+                🎫 Vouchers
+            </a>
+
+        </div>
+
+        <button class="nav-group">
+
+            💳 Billing
+
+            <span class="chevron"></span>
+
+        </button>
+
+        <div class="nav-items">
+
+            <a href="#">
+                💳 Billing
+            </a>
+
+            <a href="#">
+                💰 Transactions
+            </a>
+
+        </div>
+
+        <button class="nav-group">
+
+            📡 Network
+
+            <span class="chevron"></span>
+
+        </button>
+
+        <div class="nav-items">
+
+            <a href="#">
+                📡 MikroTik
+            </a>
+
+        </div>
+
+        <button class="nav-group">
+
+            📈 Reports
+
+            <span class="chevron"></span>
+
+        </button>
+
+        <div class="nav-items">
+
+            <a href="#">
+                📈 Reports
+            </a>
+
+        </div>
+
+        <button class="nav-group">
+
+            ⚙ System
+
+            <span class="chevron"></span>
+
+        </button>
+
+        <div class="nav-items">
+
+            <a href="#">
+                ⚙ Settings
+            </a>
+
+        </div>
+
+        <a
+            href="#"
+            id="logoutButton">
+
+            🚪 Logout
+
+        </a>
+
+    </nav>
+
+</aside>
+
+<main
+    class="content"
+    id="appContent"
+    style="display:none;">
+
+<header class="topbar">
+
+    <div class="topbar-left">
+
+        <button
+            id="menuToggle"
+            class="menu-toggle">
+
+            ☰
+
+        </button>
+
+        <div>
+
+            <h2>
+                Tenant Administrators
+            </h2>
+
+            <small>
+
+                Manage administrator accounts for every tenant.
+
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="topbar-right">
+
+        <input
+            type="text"
+            id="searchBox"
+            placeholder="Search administrators...">
+
+        <button>🔔</button>
+
+        <button>👤</button>
+
+    </div>
+
+</header>
+
+<section class="cards">
+
+    <div class="card">
+
+        <h3>Total Administrators</h3>
+
+        <h2 id="totalAdmins">
+            0
+        </h2>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Active</h3>
+
+        <h2 id="activeAdmins">
+            0
+        </h2>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Suspended</h3>
+
+        <h2 id="suspendedAdmins">
+            0
+        </h2>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Tenants</h3>
+
+        <h2 id="tenantCount">
+            0
+        </h2>
+
+    </div>
+
+</section>
+
+<section class="panel">
+
+<div
+style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+">
+
+<h2>
+Tenant Administrators
+</h2>
+
+<button
+id="createAdminButton"
+class="btn btn-primary">
+
+➕ Create Administrator
+
+</button>
 
 </div>
 
-<div class="main">
+<table id="adminTable">
 
-    <header>
+<thead>
 
-        <h1>Tenant Administrators</h1>
+<tr>
 
-        <p>Manage ISP administrator accounts in SWaGi InTech...</p>
+<th>Full Name</th>
 
-    </header>
+<th>Username</th>
 
-    <button id="createTenantButton">
-        ➕ Create Administrator
-    </button>
+<th>Email</th>
 
-    <br><br>
+<th>Tenant</th>
 
-    <input
-        type="text"
-        id="searchBox"
-        placeholder="Search tenants..."
-        style="padding:10px;width:300px;"
-    >
+<th>Status</th>
 
-    <br><br>
+<th>Actions</th>
 
-    <table id="tenantTable" width="100%" border="1" cellspacing="0" cellpadding="10">
+</tr>
 
-        <thead>
+</thead>
 
-        <tr>
+<tbody id="tenantAdminBody">
 
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Username</th>
-            <th>Tenant</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th>Actions</th>
+  </tbody>
 
-        </tr>
+</table>
 
-        </thead>
+</section>
 
-        <tbody id="tenantBody">
-
-        </tbody>
-
-    </table>
+</main>
 
 </div>
 
-<div id="editModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.5);">
+<!-- ===========================
+     Create Administrator Modal
+============================ -->
 
-  <div style="background:white; width:500px; margin:80px auto; padding:20px; border-radius:10px;">
+<div
+id="createAdminModal"
+style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.5);
+z-index:2000;
+">
 
-    <h2>Edit Tenant</h2>
+<div
+style="
+background:white;
+width:550px;
+margin:60px auto;
+padding:25px;
+border-radius:12px;
+">
 
-    <input type="hidden" id="editId">
+<h2>Create Tenant Administrator</h2>
 
-    <p>
-      <label>Business Name</label><br>
-      <input type="text" id="editBusiness" style="width:100%;">
-    </p>
+<p>
 
-    <p>
-      <label>Contact Person</label><br>
-      <input type="text" id="editContact" style="width:100%;">
-    </p>
+<label>Full Name</label>
 
-    <p>
-      <label>Email</label><br>
-      <input type="email" id="editEmail" style="width:100%;">
-    </p>
+<br>
 
-    <p>
-      <label>Phone</label><br>
-      <input type="text" id="editPhone" style="width:100%;">
-    </p>
+<input
+type="text"
+id="adminFullName"
+style="width:100%;">
 
-    <button id="saveTenantButton">Save</button>
-    <button onclick="closeModal()">Cancel</button>
+</p>
 
-  </div>
+<p>
+
+<label>Username</label>
+
+<br>
+
+<input
+type="text"
+id="adminUsername"
+style="width:100%;">
+
+</p>
+
+<p>
+
+<label>Email</label>
+
+<br>
+
+<input
+type="email"
+id="adminEmail"
+style="width:100%;">
+
+</p>
+
+<p>
+
+<label>Password</label>
+
+<br>
+
+<input
+type="password"
+id="adminPassword"
+style="width:100%;">
+
+</p>
+
+<p>
+
+<label>Tenant</label>
+
+<br>
+
+<select
+id="adminTenant"
+style="width:100%;">
+
+<option value="">
+Loading tenants...
+</option>
+
+</select>
+
+</p>
+
+<br>
+
+<button
+id="saveAdminButton"
+class="btn btn-success">
+
+Save Administrator
+
+</button>
+
+<button
+id="cancelAdminButton"
+class="btn">
+
+Cancel
+
+</button>
 
 </div>
 
-<div id="createTenantModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.5);">
+</div>
 
-  <div style="background:white; width:550px; margin:60px auto; padding:20px; border-radius:10px;">
+<!-- ===========================
+     Edit Administrator Modal
+============================ -->
 
-    <h2>Create Tenant</h2>
+<div
+id="editAdminModal"
+style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.5);
+z-index:2000;
+">
 
-    <p>
-      <label>Business Name</label><br>
-      <input type="text" id="businessName" style="width:100%;">
-    </p>
+<div
+style="
+background:white;
+width:550px;
+margin:60px auto;
+padding:25px;
+border-radius:12px;
+">
 
-    <p>
-      <label>Contact Person</label><br>
-      <input type="text" id="contactPerson" style="width:100%;">
-    </p>
+<h2>Edit Administrator</h2>
 
-    <p>
-      <label>Email</label><br>
-      <input type="email" id="tenantEmail" style="width:100%;">
-    </p>
+<input
+type="hidden"
+id="editAdminId">
 
-    <p>
-      <label>Phone</label><br>
-      <input type="text" id="tenantPhone" style="width:100%;">
-    </p>
+<p>
 
-    <button id="saveTenantCreateButton">
-      Save Tenant
-    </button>
+<label>Full Name</label>
 
-    <button id="cancelTenantButton">
-      Cancel
-    </button>
+<br>
 
-  </div>
+<input
+type="text"
+id="editAdminFullName"
+style="width:100%;">
+
+</p>
+
+<p>
+
+<label>Username</label>
+
+<br>
+
+<input
+type="text"
+id="editAdminUsername"
+style="width:100%;">
+
+</p>
+
+<p>
+
+<label>Email</label>
+
+<br>
+
+<input
+type="email"
+id="editAdminEmail"
+style="width:100%;">
+
+</p>
+
+<p>
+
+<label>Tenant</label>
+
+<br>
+
+<select
+id="editAdminTenant"
+style="width:100%;">
+
+</select>
+
+</p>
+
+<br>
+
+<button
+id="updateAdminButton"
+class="btn btn-primary">
+
+Update Administrator
+
+</button>
+
+<button
+id="cancelEditAdminButton"
+class="btn">
+
+Cancel
+
+</button>
+
+</div>
 
 </div>
 
 <script src="js/tenant-admins.js"></script>
+<script src="js/logout.js"></script>
 
 </body>
+
 </html>

@@ -3,19 +3,29 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SWaGi InTech... | Tenant Dashboard</title>
+<title>SWaGi InTech... | Tenant Dashboard</title>
 
-    <link rel="stylesheet"
-          href="css/dashboard.css">
+<link rel="stylesheet" href="../css/dashboard.css">
 
 </head>
 
 <body>
+
+<div id="loadingScreen">
+
+    <div class="loading-box">
+
+        <h2>SWaGi InTech...</h2>
+
+        <p>Loading your dashboard...</p>
+
+    </div>
+
+</div>
 
 <div class="layout">
 
@@ -24,86 +34,112 @@
         <h2>SWaGi InTech...</h2>
 
         <p class="tagline">
-            Transforming Ideas into Inventions and Innovations.
+
+            Transforming ideas into inventions and innovations.
+
         </p>
 
         <nav>
 
-            <a href="dashboard.html" class="active">
+            <a href="tenant-dashboard.html" class="active">
+
                 📊 Dashboard
+
             </a>
 
             <a href="packages.html">
+
                 📦 Packages
+
             </a>
 
             <a href="customers.html">
+
                 👥 Customers
+
             </a>
 
             <a href="vouchers.html">
+
                 🎫 Vouchers
+
             </a>
 
             <a href="#">
+
                 💳 Transactions
+
             </a>
 
             <a href="#">
+
                 📡 MikroTik
+
             </a>
 
             <a href="#">
+
                 📈 Reports
+
             </a>
 
             <a href="profile.html">
+
                 ⚙ Profile
+
             </a>
 
             <a href="#" id="logoutButton">
+
                 🚪 Logout
+
             </a>
 
         </nav>
 
     </aside>
 
-    <main class="content">
+    <main class="content" id="appContent" style="display:none;">
 
-<header class="topbar">
+        <header class="topbar">
 
-<div class="topbar-left">
+            <div class="topbar-left">
 
-<button id="menuToggle" class="menu-toggle">
-☰
-</button>
+                <button id="menuToggle" class="menu-toggle">
 
-<div>
+                    ☰
 
-<h2>Tenant Dashboard</h2>
+                </button>
 
-<small id="businessName">
-Loading business information...
-</small>
+                <div>
 
-</div>
+                    <h2>Tenant Dashboard</h2>
 
-</div>
+                    <small id="businessName">
 
-<div class="topbar-right">
+                        Loading...
 
-<input
-type="text"
-placeholder="Search...">
+                    </small>
 
-<button>🔔</button>
+                </div>
 
-<button>👤</button>
+            </div>
 
-</div>
+            <div class="topbar-right">
 
+                <input
+                    type="text"
+                    placeholder="Search...">
 
+                <button>🤖</button>
+
+                <button>🔔</button>
+
+                <button>👤</button>
+
+            </div>
+
+        </header>
 
         <section class="cards">
 
@@ -147,10 +183,11 @@ placeholder="Search...">
 
             <p>
 
-                This dashboard lets you manage your own Wi-Fi business.
+                Welcome to the SWaGi InTech Tenant Dashboard.
 
-                You can create packages, customers, vouchers,
-                monitor transactions and manage your MikroTik routers.
+                From here you will manage packages, customers,
+
+                vouchers, billing, reports and your MikroTik routers.
 
             </p>
 
@@ -160,9 +197,11 @@ placeholder="Search...">
 
 </div>
 
-<script src="js/dashboard.js"></script>
-<script src="js/navigation.js"></script>
-<script src="js/logout.js"></script>
+<script src="../js/navigation.js"></script>
+
+<script src="../js/logout.js"></script>
+
+<script src="../js/dashboard.js"></script>
 
 </body>
 

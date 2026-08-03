@@ -5,52 +5,56 @@ export async function dashboard(
     env: Env
 ): Promise<Response> {
 
-    const tenants = await env.swagi_intech_db
-        .prepare(`
-            SELECT COUNT(*) AS total
-            FROM tenants
-        `)
-        .first();
+    const statistics =
+        await env.swagi_intech_db
+            .prepare(`
+                SELECT
 
-    const activeTenants = await env.swagi_intech_db
-        .prepare(`
-            SELECT COUNT(*) AS total
-            FROM tenants
-            WHERE status='ACTIVE'
-        `)
-        .first();
+                    COUNT(*) AS tenants,
 
-    const suspendedTenants = await env.swagi_intech_db
-        .prepare(`
-            SELECT COUNT(*) AS total
-            FROM tenants
-            WHERE status='SUSPENDED'
-        `)
-        .first();
+                    SUM(
+                        CASE
+                            WHEN status = 'ACTIVE'
+                            THEN 1
+                            ELSE 0
+                        END
+                    ) AS activeTenants,
 
-    const trialTenants = await env.swagi_intech_db
-        .prepare(`
-            SELECT COUNT(*) AS total
-            FROM tenants
-            WHERE subscription_status='TRIAL'
-        `)
-        .first();
+                    SUM(
+                        CASE
+                            WHEN status = 'SUSPENDED'
+                            THEN 1
+                            ELSE 0
+                        END
+                    ) AS suspendedTenants,
 
-    const monthlyTenants = await env.swagi_intech_db
-        .prepare(`
-            SELECT COUNT(*) AS total
-            FROM tenants
-            WHERE subscription_status='MONTHLY'
-        `)
-        .first();
+                    SUM(
+                        CASE
+                            WHEN subscription_status = 'TRIAL'
+                            THEN 1
+                            ELSE 0
+                        END
+                    ) AS trialTenants,
 
-    const yearlyTenants = await env.swagi_intech_db
-        .prepare(`
-            SELECT COUNT(*) AS total
-            FROM tenants
-            WHERE subscription_status='YEARLY'
-        `)
-        .first();
+                    SUM(
+                        CASE
+                            WHEN subscription_status = 'MONTHLY'
+                            THEN 1
+                            ELSE 0
+                        END
+                    ) AS monthlyTenants,
+
+                    SUM(
+                        CASE
+                            WHEN subscription_status = 'YEARLY'
+                            THEN 1
+                            ELSE 0
+                        END
+                    ) AS yearlyTenants
+
+                FROM tenants
+            `)
+            .first();
 
     return Response.json({
 
@@ -58,22 +62,23 @@ export async function dashboard(
 
         statistics: {
 
-            tenants: Number(tenants?.total ?? 0),
+            tenants:
+                Number(statistics?.tenants ?? 0),
 
             activeTenants:
-                Number(activeTenants?.total ?? 0),
+                Number(statistics?.activeTenants ?? 0),
 
             suspendedTenants:
-                Number(suspendedTenants?.total ?? 0),
+                Number(statistics?.suspendedTenants ?? 0),
 
             trialTenants:
-                Number(trialTenants?.total ?? 0),
+                Number(statistics?.trialTenants ?? 0),
 
             monthlyTenants:
-                Number(monthlyTenants?.total ?? 0),
+                Number(statistics?.monthlyTenants ?? 0),
 
             yearlyTenants:
-                Number(yearlyTenants?.total ?? 0)
+                Number(statistics?.yearlyTenants ?? 0)
 
         }
 

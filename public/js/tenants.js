@@ -1,281 +1,747 @@
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
+
+    loadTenants();
+
+    const createTenantButton =
+        document.getElementById("createTenantButton");
+
+    const cancelTenantButton =
+        document.getElementById("cancelTenantButton");
+
+    const saveTenantButton =
+        document.getElementById("saveTenantButton");
+
+    const updateTenantButton =
+        document.getElementById("updateTenantButton");
+
+    if (createTenantButton) {
+
+        createTenantButton.addEventListener(
+            "click",
+            openCreateTenantModal
+        );
+
+    }
+
+    if (cancelTenantButton) {
+
+        cancelTenantButton.addEventListener(
+            "click",
+            closeCreateTenantModal
+        );
+
+    }
+
+    if (saveTenantButton) {
+
+        saveTenantButton.addEventListener(
+            "click",
+            saveTenant
+        );
+
+    }
+
+    if (updateTenantButton) {
+
+        updateTenantButton.addEventListener(
+            "click",
+            updateTenant
+        );
+
+    }
+
+});
+
+
+/* ================================
+   LOAD TENANTS
+================================ */
+
+async function loadTenants() {
 
     try {
 
-        const response = await fetch("/admin/tenants", {
-            headers: {
-                Authorization: "Bearer demo-token"
+        const response = await fetch(
+            "/admin/tenants",
+            {
+                credentials: "include"
             }
-        });
+        );
+
+        if (response.status === 401) {
+
+            window.location.replace("/login.html");
+
+            return;
+
+        }
+
+        if (!response.ok) {
+
+            throw new Error(
+                `Failed to load tenants. Status: ${response.status}`
+            );
+
+        }
 
         const tenants = await response.json();
 
-        const body = document.getElementById("tenantBody");
+        const body =
+            document.getElementById("tenantBody");
+
+        if (!body) {
+            return;
+        }
 
         body.innerHTML = "";
 
         tenants.forEach(tenant => {
 
             body.innerHTML += `
+
                 <tr>
-                    <td>${tenant.business_name}</td>
-                    <td>${tenant.contact_person}</td>
-                    <td>${tenant.email}</td>
-                    <td>${tenant.phone}</td>
+
                     <td>
-    <span class="badge badge-${tenant.status.toLowerCase()}">
-        ${tenant.status}
-    </span>
-</td>
+                        ${tenant.business_name ?? "-"}
+                    </td>
 
-<td>
-    <span class="badge badge-${tenant.subscription_status.toLowerCase()}">
-        ${tenant.subscription_status}
-    </span>
-</td>
+                    <td>
+                        ${tenant.contact_person ?? "-"}
+                    </td>
+
+                    <td>
+                        ${tenant.email ?? "-"}
+                    </td>
+
+                    <td>
+                        ${tenant.phone ?? "-"}
+                    </td>
+
                     <td>
 
-<button
-class="btn btn-primary"
-onclick="editTenant('${tenant.id}')">
+                        <span class="badge badge-${String(
+                            tenant.status ?? ""
+                        ).toLowerCase()}">
 
-✏ Edit
+                            ${tenant.status ?? "-"}
 
-</button>
+                        </span>
 
-<button
-class="btn btn-warning"
-onclick="toggleTenantStatus('${tenant.id}')">
+                    </td>
 
-⏸ Suspend
+                    <td>
 
-</button>
+                        <span class="badge badge-${String(
+                            tenant.subscription_status ?? ""
+                        ).toLowerCase()}">
 
-<button
-class="btn btn-danger"
-onclick="deleteTenant('${tenant.id}')">
+                            ${tenant.subscription_status ?? "-"}
 
-🗑 Delete
+                        </span>
 
-</button>
+                    </td>
 
-</td>
+                    <td>
+
+                        <button
+                            class="btn btn-primary"
+                            onclick="editTenant('${tenant.id}')">
+
+                            ✏ Edit
+
+                        </button>
+
+                        <button
+                            class="btn btn-warning"
+                            onclick="toggleTenantStatus('${tenant.id}')">
+
+                            ⏸ Suspend
+
+                        </button>
+
+                        <button
+                            class="btn btn-danger"
+                            onclick="deleteTenant('${tenant.id}')">
+
+                            🗑 Delete
+
+                        </button>
+
+                    </td>
+
                 </tr>
+
             `;
 
         });
 
-    } catch (error) {
+    }
 
-        console.error(error);
+    catch (error) {
+
+        console.error(
+            "Unable to load tenants:",
+            error
+        );
+
+        alert(
+            "Unable to load tenants. Please try again."
+        );
 
     }
 
-});
+}
+
+
+/* ================================
+   EDIT TENANT
+================================ */
 
 async function editTenant(id) {
 
-    const response = await fetch("/admin/tenants", {
-        headers: {
-            Authorization: "Bearer demo-token"
+    try {
+
+        const response = await fetch(
+            "/admin/tenants",
+            {
+                credentials: "include"
+            }
+        );
+
+        if (response.status === 401) {
+
+            window.location.replace("/login.html");
+
+            return;
+
         }
-    });
 
-    const tenants = await response.json();
+        const tenants =
+            await response.json();
 
-    const tenant = tenants.find(t => t.id === id);
+        const tenant =
+            tenants.find(
+                item => item.id === id
+            );
 
-    if (!tenant) {
-        alert("Tenant not found.");
-        return;
+        if (!tenant) {
+
+            alert(
+                "Tenant not found."
+            );
+
+            return;
+
+        }
+
+        document.getElementById(
+            "editId"
+        ).value = tenant.id;
+
+        document.getElementById(
+            "editBusiness"
+        ).value = tenant.business_name ?? "";
+
+        document.getElementById(
+            "editContact"
+        ).value = tenant.contact_person ?? "";
+
+        document.getElementById(
+            "editEmail"
+        ).value = tenant.email ?? "";
+
+        document.getElementById(
+            "editPhone"
+        ).value = tenant.phone ?? "";
+
+        document.getElementById(
+            "editModal"
+        ).style.display = "block";
+
     }
 
-    document.getElementById("editId").value = tenant.id;
-    document.getElementById("editBusiness").value = tenant.business_name;
-    document.getElementById("editContact").value = tenant.contact_person;
-    document.getElementById("editEmail").value = tenant.email;
-    document.getElementById("editPhone").value = tenant.phone;
+    catch (error) {
 
-    document.getElementById("editModal").style.display = "block";
+        console.error(error);
 
-}
+        alert(
+            "Unable to load tenant information."
+        );
 
-function closeModal() {
-
-    document.getElementById("editModal").style.display = "none";
+    }
 
 }
 
-document
-.getElementById("updateTenantButton")
-.addEventListener("click", async () => {
 
-    const id = document.getElementById("editId").value;
+/* ================================
+   UPDATE TENANT
+================================ */
+
+async function updateTenant() {
+
+    const id =
+        document.getElementById(
+            "editId"
+        ).value;
 
     const body = {
 
         business_name:
-            document.getElementById("editBusiness").value,
+            document.getElementById(
+                "editBusiness"
+            ).value,
 
         contact_person:
-            document.getElementById("editContact").value,
+            document.getElementById(
+                "editContact"
+            ).value,
 
         email:
-            document.getElementById("editEmail").value,
+            document.getElementById(
+                "editEmail"
+            ).value,
 
         phone:
-            document.getElementById("editPhone").value
+            document.getElementById(
+                "editPhone"
+            ).value
 
     };
 
-    const response = await fetch("/admin/tenants/" + id, {
+    try {
 
-        method: "PUT",
+        const response = await fetch(
+            "/admin/tenants/" + id,
+            {
 
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer demo-token"
-        },
+                method: "PUT",
 
-        body: JSON.stringify(body)
+                credentials: "include",
 
-    });
+                headers: {
 
-    const result = await response.json();
+                    "Content-Type":
+                        "application/json"
 
-    alert(result.message);
+                },
 
-    closeModal();
+                body:
+                    JSON.stringify(body)
 
-    location.reload();
+            }
+        );
 
-});
+        if (response.status === 401) {
+
+            window.location.replace(
+                "/login.html"
+            );
+
+            return;
+
+        }
+
+        const result =
+            await response.json();
+
+        if (!response.ok) {
+
+            alert(
+                result.message ||
+                "Unable to update tenant."
+            );
+
+            return;
+
+        }
+
+        alert(
+            result.message ||
+            "Tenant updated successfully."
+        );
+
+        closeModal();
+
+        await loadTenants();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to update tenant."
+        );
+
+    }
+
+}
+
+
+/* ================================
+   SUSPEND / ACTIVATE TENANT
+================================ */
 
 async function toggleTenantStatus(id) {
 
-    const response = await fetch("/admin/tenants/" + id, {
+    try {
 
-        method: "PATCH",
+        const response = await fetch(
+            "/admin/tenants/" + id,
+            {
 
-        headers: {
-            Authorization: "Bearer demo-token"
+                method: "PATCH",
+
+                credentials: "include"
+
+            }
+        );
+
+        if (response.status === 401) {
+
+            window.location.replace(
+                "/login.html"
+            );
+
+            return;
+
         }
 
-    });
+        const result =
+            await response.json();
 
-    const result = await response.json();
+        if (!response.ok) {
 
-    alert(result.message);
+            alert(
+                result.message ||
+                "Unable to change tenant status."
+            );
 
-    location.reload();
+            return;
+
+        }
+
+        alert(
+            result.message ||
+            "Tenant status updated."
+        );
+
+        await loadTenants();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to change tenant status."
+        );
+
+    }
 
 }
+
+
+/* ================================
+   DELETE TENANT
+================================ */
 
 async function deleteTenant(id) {
 
-    const confirmed = confirm(
-        "Are you sure you want to permanently delete this tenant?"
-    );
+    const confirmed =
+        confirm(
+            "Are you sure you want to permanently delete this tenant?"
+        );
 
     if (!confirmed) {
+
         return;
+
     }
 
-    const response = await fetch("/admin/tenants/" + id, {
+    try {
 
-        method: "DELETE",
+        const response = await fetch(
+            "/admin/tenants/" + id,
+            {
 
-        headers: {
-            Authorization: "Bearer demo-token"
+                method: "DELETE",
+
+                credentials: "include"
+
+            }
+        );
+
+        if (response.status === 401) {
+
+            window.location.replace(
+                "/login.html"
+            );
+
+            return;
+
         }
 
-    });
+        const result =
+            await response.json();
 
-    const result = await response.json();
+        if (!response.ok) {
 
-    alert(result.message);
+            alert(
+                result.message ||
+                "Unable to delete tenant."
+            );
 
-    location.reload();
+            return;
+
+        }
+
+        alert(
+            result.message ||
+            "Tenant deleted successfully."
+        );
+
+        await loadTenants();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to delete tenant."
+        );
+
+    }
 
 }
 
-// Create Tenant Modal
 
-const createTenantModal =
-    document.getElementById("tenantModal");
+/* ================================
+   CREATE TENANT MODAL
+================================ */
 
-const createTenantButton =
-    document.getElementById("createTenantButton");
+function openCreateTenantModal() {
 
-const cancelTenantButton =
-    document.getElementById("cancelTenantButton");
+    const modal =
+        document.getElementById(
+            "tenantModal"
+        );
 
-createTenantButton.addEventListener("click", () => {
+    if (modal) {
 
-    createTenantModal.style.display = "block";
+        modal.style.display = "block";
 
-});
+    }
 
-cancelTenantButton.addEventListener("click", () => {
+}
 
-    createTenantModal.style.display = "none";
 
-});
+function closeCreateTenantModal() {
 
-const saveTenantCreateButton =
-    document.getElementById("saveTenantButton");
+    const modal =
+        document.getElementById(
+            "tenantModal"
+        );
 
-saveTenantCreateButton.addEventListener("click", saveTenant);
+    if (modal) {
+
+        modal.style.display = "none";
+
+    }
+
+}
+
+
+/* ================================
+   CREATE TENANT
+================================ */
 
 async function saveTenant() {
 
     const tenant = {
 
-    business_name:
-        document.getElementById("businessName").value,
+        business_name:
+            document.getElementById(
+                "businessName"
+            ).value.trim(),
 
-    contact_person:
-        document.getElementById("contactPerson").value,
+        contact_person:
+            document.getElementById(
+                "contactPerson"
+            ).value.trim(),
 
-    email:
-        document.getElementById("email").value,
+        email:
+            document.getElementById(
+                "email"
+            ).value.trim(),
 
-    phone:
-        document.getElementById("phone").value,
+        phone:
+            document.getElementById(
+                "phone"
+            ).value.trim(),
 
-    subscription_status:
-        document.getElementById("subscription").value
+        subscription_status:
+            document.getElementById(
+                "subscription"
+            ).value
 
-};
+    };
 
-    const response = await fetch("/admin/tenants", {
 
-        method: "POST",
+    if (!tenant.business_name) {
 
-        credentials: "include",
-
-        headers: {
-            "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify(tenant)
-
-    });
-
-    const result = await response.json();
-
-    if (!result.success) {
-
-        alert(result.message);
+        alert(
+            "Please enter the business name."
+        );
 
         return;
 
     }
 
-    alert(result.message);
 
-    createTenantModal.style.display = "none";
+    if (!tenant.contact_person) {
 
-    location.reload();
+        alert(
+            "Please enter the contact person."
+        );
+
+        return;
+
+    }
+
+
+    if (!tenant.email) {
+
+        alert(
+            "Please enter the tenant email."
+        );
+
+        return;
+
+    }
+
+
+    if (!tenant.phone) {
+
+        alert(
+            "Please enter the phone number."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const response = await fetch(
+            "/admin/tenants",
+            {
+
+                method: "POST",
+
+                credentials: "include",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body:
+                    JSON.stringify(tenant)
+
+            }
+        );
+
+        if (response.status === 401) {
+
+            window.location.replace(
+                "/login.html"
+            );
+
+            return;
+
+        }
+
+        const result =
+            await response.json();
+
+        if (!response.ok || !result.success) {
+
+            alert(
+                result.message ||
+                "Unable to create tenant."
+            );
+
+            return;
+
+        }
+
+        alert(
+            result.message ||
+            "Tenant created successfully."
+        );
+
+        closeCreateTenantModal();
+
+        document.getElementById(
+            "businessName"
+        ).value = "";
+
+        document.getElementById(
+            "contactPerson"
+        ).value = "";
+
+        document.getElementById(
+            "email"
+        ).value = "";
+
+        document.getElementById(
+            "phone"
+        ).value = "";
+
+        document.getElementById(
+            "subscription"
+        ).value = "trial";
+
+        await loadTenants();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to create tenant."
+        );
+
+    }
+
+}
+
+
+/* ================================
+   CLOSE EDIT MODAL
+================================ */
+
+function closeModal() {
+
+    const modal =
+        document.getElementById(
+            "editModal"
+        );
+
+    if (modal) {
+
+        modal.style.display = "none";
+
+    }
 
 }

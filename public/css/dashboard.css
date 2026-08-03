@@ -60,12 +60,6 @@ body{
 
 }
 
-.sidebar.closed{
-
-    left:-260px;
-
-}
-
 .sidebar h2{
     margin-bottom:10px;
 }
@@ -584,25 +578,24 @@ overflow:hidden;
 /* Hide Sidebar Completely */
 
 .sidebar{
-
-transition:0.3s ease;
-
+    transition:0.3s ease;
 }
 
 .sidebar.hidden{
-
-width:0;
-
-padding:0;
-
-overflow:hidden;
-
+    left:-260px;
 }
 
 .sidebar.hidden *{
+    display:none;
+}
 
-display:none;
+.content{
+    margin-left:260px;
+    transition:margin-left .3s ease;
+}
 
+.sidebar.hidden + .content{
+    margin-left:0;
 }
 
 .content{

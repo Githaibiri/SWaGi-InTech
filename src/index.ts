@@ -308,8 +308,6 @@ if (auth) {
 
 }
 
-console.log("POST /tenant/packages route reached");
-
 // Create Package
 if (
   url.pathname === "/api/tenant/packages" &&

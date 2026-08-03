@@ -1,25 +1,39 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
-    const loadingScreen = document.getElementById("loadingScreen");
-    const appContent = document.getElementById("appContent");
+    console.log("Dashboard JS started");
+
+    const loadingScreen =
+        document.getElementById("loadingScreen");
+
+    const appContent =
+        document.getElementById("appContent");
 
     try {
+
+        console.log("Requesting /admin/dashboard");
 
         const response = await fetch("/admin/dashboard", {
             credentials: "include"
         });
 
-        if (response.status === 401) {
-
-            window.location.replace("/login.html");
-
-            return;
-
-        }
+        console.log(
+            "Dashboard response status:",
+            response.status
+        );
 
         const data = await response.json();
 
-        if (!data.success) {
+        console.log(
+            "Dashboard response data:",
+            data
+        );
+
+        if (!response.ok || !data.success) {
+
+            console.error(
+                "Dashboard authentication failed",
+                data
+            );
 
             window.location.replace("/login.html");
 
@@ -28,32 +42,35 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         document.getElementById("tenantCount").textContent =
-    data.statistics.tenants;
+            data.statistics.tenants;
 
-document.getElementById("activeTenantCount").textContent =
-    data.statistics.activeTenants;
+        document.getElementById("activeTenantCount").textContent =
+            data.statistics.activeTenants;
 
-document.getElementById("suspendedTenantCount").textContent =
-    data.statistics.suspendedTenants;
+        document.getElementById("suspendedTenantCount").textContent =
+            data.statistics.suspendedTenants;
 
-document.getElementById("trialTenantCount").textContent =
-    data.statistics.trialTenants;
+        document.getElementById("trialTenantCount").textContent =
+            data.statistics.trialTenants;
 
-document.getElementById("monthlyTenantCount").textContent =
-    data.statistics.monthlyTenants;
+        document.getElementById("monthlyTenantCount").textContent =
+            data.statistics.monthlyTenants;
 
-document.getElementById("yearlyTenantCount").textContent =
-    data.statistics.yearlyTenants;
+        document.getElementById("yearlyTenantCount").textContent =
+            data.statistics.yearlyTenants;
 
         loadingScreen.style.display = "none";
 
         appContent.style.display = "block";
 
-    }
+        console.log("Dashboard loaded successfully");
 
-    catch (error) {
+    } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Dashboard loading error:",
+            error
+        );
 
         window.location.replace("/login.html");
 

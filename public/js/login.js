@@ -67,7 +67,7 @@ setTimeout(() => {
 
     else if (result.user.role === "TENANT_ADMIN") {
 
-        window.location.href = "/tenant-dashboard.html";
+        window.location.href = "/tenant/tenant-dashboard.html";
 
     }
 

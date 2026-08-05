@@ -57,17 +57,29 @@ message.textContent = "Login successful...";
 
 // Save the logged-in user's details (optional but useful)
 
+console.log("User role:", result.user.role);
+
 setTimeout(() => {
 
-    if (result.user.role === "SUPER_ADMIN") {
+    console.log("Redirect code started");
 
-        window.location.href = "/dashboard.html";
+    const role = result.user.role.toLowerCase();
 
-    }
+if (role === "super_admin") {
 
-    else if (result.user.role === "TENANT_ADMIN") {
+    window.location.href = "/dashboard.html";
 
-        window.location.href = "/tenant/tenant-dashboard.html";
+}
+
+else if (role === "tenant_admin") {
+
+    window.location.href = "/tenant/dashboard.html";
+
+}
+
+    else {
+
+        console.log("Unknown role:", result.user.role);
 
     }
 

@@ -87,6 +87,12 @@ async function loadTenantAdmins() {
         const data =
             await response.json();
 
+            const loadingScreen =
+    document.getElementById("loadingScreen");
+
+const appContent =
+    document.getElementById("appContent");
+
         console.log(
             "Tenant admin response data:",
             data
@@ -196,17 +202,25 @@ async function loadTenantAdmins() {
 
         if (tenantAdmins.length === 0) {
 
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="6">
-                        No Tenant Administrators Found
-                    </td>
-                </tr>
-            `;
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="6">
+                No Tenant Administrators Found
+            </td>
+        </tr>
+    `;
 
-            return;
+    if (loadingScreen) {
+        loadingScreen.style.display = "none";
+    }
 
-        }
+    if (appContent) {
+        appContent.style.display = "block";
+    }
+
+    return;
+
+}
 
 
         /*
@@ -274,6 +288,14 @@ async function loadTenantAdmins() {
             `;
 
         });
+
+        if (loadingScreen) {
+    loadingScreen.style.display = "none";
+}
+
+if (appContent) {
+    appContent.style.display = "block";
+}
 
     }
 

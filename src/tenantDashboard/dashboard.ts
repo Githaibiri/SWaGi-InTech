@@ -1,5 +1,6 @@
 import { TenantDashboardService } from "./dashboard.service";
 import type { Env } from "./dashboard.types";
+import { getCurrentUser } from "../auth/session.middleware";
 
 const service = new TenantDashboardService();
 
@@ -8,14 +9,31 @@ export async function tenantDashboard(
     env: Env
 ): Promise<Response> {
 
-    // Temporary tenant ID
-    // Later this will come from the logged-in session.
-    const tenantId = "TEMP_TENANT_ID";
+    const currentUser =
+        await getCurrentUser(
+            request,
+            env
+        );
 
-    const result = await service.getDashboard(
-        env,
-        tenantId
-    );
+    if (!currentUser) {
+
+        return Response.json(
+            {
+                success: false,
+                message: "Unauthorized."
+            },
+            {
+                status: 401
+            }
+        );
+
+    }
+
+    const result =
+        await service.getDashboard(
+            env,
+            currentUser.tenant_id!
+        );
 
     return Response.json(result);
 

@@ -38,6 +38,10 @@ if (auth) {
         .bind(token)
         .first<{ role: string }>();
 
+        console.log("Role from database:", user?.role);
+
+console.log("Allowed roles:", allowedRoles);
+
     if (!user) {
 
         return new Response(
@@ -55,22 +59,34 @@ if (auth) {
 
     }
 
-    if (!allowedRoles.includes(user.role)) {
+    console.log(
+    "Role comparison:",
+    user.role,
+    allowedRoles.includes(user.role)
+);
 
-        return new Response(
-            JSON.stringify({
-                success: false,
-                message: "Forbidden."
-            }),
-            {
-                status: 403,
-                headers: {
-                    "Content-Type": "application/json"
-                }
+    const userRole =
+    user.role.toUpperCase();
+
+const allowed =
+    allowedRoles.map(role => role.toUpperCase());
+
+if (!allowed.includes(userRole)) {
+
+    return new Response(
+        JSON.stringify({
+            success: false,
+            message: "Forbidden."
+        }),
+        {
+            status: 403,
+            headers: {
+                "Content-Type": "application/json"
             }
-        );
+        }
+    );
 
-    }
+}
 
     return null;
 

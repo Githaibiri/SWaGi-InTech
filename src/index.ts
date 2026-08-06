@@ -455,11 +455,12 @@ if (
 
 }
 
-// Tenant Dashboard
 if (
-  url.pathname === "/tenant/dashboard" &&
+  url.pathname === "/api/tenant/dashboard" &&
   request.method === "GET"
 ) {
+
+  console.log("TENANT DASHBOARD API REACHED");
 
   const auth = await requireRole(
     request,

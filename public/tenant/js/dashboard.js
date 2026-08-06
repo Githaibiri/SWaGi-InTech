@@ -1,41 +1,61 @@
+console.log("Tenant dashboard JS started");
+
 document.addEventListener("DOMContentLoaded", async () => {
 
-    const loadingScreen = document.getElementById("loadingScreen");
-    const appContent = document.getElementById("appContent");
+    console.log("DOM loaded");
+
+    const loadingScreen =
+        document.getElementById("loadingScreen");
+
+    const appContent =
+        document.getElementById("appContent");
 
     try {
 
-        const response = await fetch("/tenant/dashboard", {
+        console.log("Requesting dashboard API...");
+
+        const response = await fetch("/api/tenant/dashboard", {
             credentials: "include"
         });
 
+        console.log("Status:", response.status);
+
+        const text = await response.text();
+
+        console.log("Response:", text);
+
         if (response.status === 401) {
 
+            console.log("Unauthorized");
+
             window.location.replace("/login.html");
+
             return;
 
         }
 
-        const result = await response.json();
+        const result = JSON.parse(text);
 
-        if (!result.success) {
-
-            window.location.replace("/login.html");
-            return;
-
-        }
+        console.log("Parsed result:", result);
 
         document.getElementById("businessName").textContent =
             result.business_name;
 
+        console.log("Business name loaded");
+
         loadingScreen.style.display = "none";
+
+        console.log("Loading screen hidden");
+
         appContent.style.display = "block";
 
-    } catch (error) {
+        console.log("Dashboard displayed");
 
-        console.error(error);
+    }
 
-        window.location.replace("/login.html");
+    catch (error) {
+
+        console.error("Dashboard error:", error);
 
     }
 

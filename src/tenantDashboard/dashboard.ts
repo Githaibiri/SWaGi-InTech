@@ -15,6 +15,8 @@ export async function tenantDashboard(
             env
         );
 
+        console.log("Current user:", currentUser);
+
     if (!currentUser) {
 
         return Response.json(

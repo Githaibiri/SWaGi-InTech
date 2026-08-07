@@ -95,7 +95,11 @@ async function loadPackages(){
 
 <td>${packageItem.duration_minutes} Minutes</td>
 
-<td>${packageItem.status}</td>
+<td>${
+    packageItem.is_active
+        ? "Active"
+        : "Suspended"
+}</td>
 
 <td>
 
@@ -111,7 +115,15 @@ Edit
 class="btn btn-warning"
 onclick="togglePackage('${packageItem.id}')">
 
-Suspend
+${
+
+    packageItem.is_active
+
+        ? "Suspend"
+
+        : "Activate"
+
+}
 
 </button>
 
@@ -255,5 +267,105 @@ async function editPackage(packageId){
         packageItem.duration_minutes;
 
     modal.style.display = "flex";
+
+}
+
+async function togglePackage(packageId) {
+
+    const response = await fetch(
+
+        "/api/tenant/packages/" + packageId,
+
+        {
+            credentials: "include"
+        }
+
+    );
+
+    const result = await response.json();
+
+    if (!result.success) {
+
+        alert(result.message);
+
+        return;
+
+    }
+
+    const packageItem = result.data;
+
+    const newStatus = packageItem.is_active ? 0 : 1;
+
+    const updateResponse = await fetch(
+
+        "/api/tenant/packages/" + packageId,
+
+        {
+
+            method: "PATCH",
+
+            credentials: "include",
+
+            headers: {
+
+                "Content-Type": "application/json"
+
+            },
+
+            body: JSON.stringify({
+
+                is_active: newStatus
+
+            })
+
+        }
+
+    );
+
+    const updateResult = await updateResponse.json();
+
+    alert(updateResult.message);
+
+    loadPackages();
+
+}
+
+
+
+async function deletePackage(packageId) {
+
+    if (
+
+        !confirm(
+
+            "Are you sure you want to delete this package?"
+
+        )
+
+    ) {
+
+        return;
+
+    }
+
+    const response = await fetch(
+
+        "/api/tenant/packages/" + packageId,
+
+        {
+
+            method: "DELETE",
+
+            credentials: "include"
+
+        }
+
+    );
+
+    const result = await response.json();
+
+    alert(result.message);
+
+    loadPackages();
 
 }

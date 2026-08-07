@@ -32,7 +32,7 @@ export class PackageService {
                 description,
                 price,
                 duration_minutes,
-                status,
+                is_active,
                 created_at,
                 updated_at
 
@@ -51,7 +51,7 @@ export class PackageService {
             request.description ?? "",
             request.price,
             request.duration_minutes,
-            "ACTIVE",
+            1,
             now,
             now
 
@@ -209,7 +209,7 @@ async changePackageStatus(
 
     env: Env,
     packageId: string,
-    status: string
+    isActive: number
 
 ): Promise<PackageResponse> {
 
@@ -222,7 +222,7 @@ async changePackageStatus(
 
         SET
 
-            status = ?,
+            is_active = ?,
             updated_at = ?
 
         WHERE id = ?
@@ -232,7 +232,7 @@ async changePackageStatus(
 
     .bind(
 
-        status,
+        isActive,
         now,
         packageId
 

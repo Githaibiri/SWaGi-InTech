@@ -25,21 +25,29 @@ export class TenantService {
     }
 
     const id = crypto.randomUUID();
-    const now = new Date().toISOString();
+
+const portalSlug = request.business_name
+  .trim()
+  .toLowerCase()
+  .replace(/[^a-z0-9\s-]/g, "")
+  .replace(/\s+/g, "-");
+
+const now = new Date().toISOString();
 
     await env.swagi_intech_db
       .prepare(`
     INSERT INTO tenants (
-      id,
-      business_name,
-      contact_person,
-      email,
-      phone,
-      subscription_status,
-      created_at,
-      updated_at
-    )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  id,
+  business_name,
+  contact_person,
+  email,
+  phone,
+  portal_slug,
+  subscription_status,
+  created_at,
+  updated_at
+)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
 `)
       .bind(
     id,
@@ -47,6 +55,7 @@ export class TenantService {
     request.contact_person,
     request.email,
     request.phone,
+    portalSlug,
     request.subscription_status,
     now,
     now
@@ -62,7 +71,8 @@ export class TenantService {
         contact_person: request.contact_person,
         email: request.email,
         phone: request.phone,
-        status: "ACTIVE",
+portal_slug: portalSlug,
+status: "ACTIVE",
         subscription_status: request.subscription_status,
         created_at: now,
         updated_at: now

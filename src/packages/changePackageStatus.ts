@@ -13,17 +13,17 @@ export async function changePackageStatus(
 
     const body = await request.json() as {
 
-        status: string;
+    is_active: number;
 
-    };
+};
 
-    const result = await service.changePackageStatus(
+const result = await service.changePackageStatus(
 
-        env,
-        packageId,
-        body.status
+    env,
+    packageId,
+    body.is_active
 
-    );
+);
 
     return Response.json(result);
 
